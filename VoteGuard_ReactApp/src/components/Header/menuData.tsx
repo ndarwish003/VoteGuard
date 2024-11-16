@@ -32,5 +32,30 @@ const menuData: Menu[] = [
       }
     ],
   },
+  {
+    id: 3,
+    title: "User-Dashboard",
+    newTab: false,
+    submenu: [
+      {
+        id: 41,
+        title: "Dashboard",
+        path: "/User-Dashboard",
+        newTab: false,
+      },
+      {
+        id: 42,
+        title: "info",
+        path: "/info-Dashboard",
+        newTab: false,
+      },
+      {
+        id: 43,
+        title: "Protfile",
+        path: "/Profile",
+        newTab: false,
+      }
+    ],
+  }
 ];
 export default menuData;
