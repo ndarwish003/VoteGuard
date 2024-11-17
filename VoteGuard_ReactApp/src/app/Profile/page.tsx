@@ -75,7 +75,7 @@ const Profile = () => {
                                             </div>
                                         </div>
 
-                                        <div className="mb-5.5">
+                                        {/* <div className="mb-5.5">
                                             <label
                                                 className="mb-3 block text-sm font-medium text-black dark:text-white"
                                                 htmlFor="Password"
@@ -90,7 +90,7 @@ const Profile = () => {
                                                 placeholder=""
                                                 defaultValue=""
                                             />
-                                        </div>
+                                        </div> */}
 
                                         <div className="mb-5.5">
                                             <label
@@ -163,10 +163,7 @@ const Profile = () => {
                                                 </span>
                                                 <span className="flex gap-2.5">
                                                     <button className="text-sm hover:text-primary ">
-                                                        Delete
-                                                    </button>
-                                                    <button className="text-sm hover:text-primary">
-                                                        Update
+                                                        Capture
                                                     </button>
                                                 </span>
                                             </div>
@@ -214,7 +211,7 @@ const Profile = () => {
                                                     <span className="text-primary">Click to upload</span> or
                                                     drag and drop
                                                 </p>
-                                                <p className="mt-1.5">SVG, PNG, JPG or GIF</p>
+                                                <p className="mt-1.5">PNG, JPG</p>
                                                 <p>(max, 800 X 800px)</p>
                                             </div>
                                         </div>

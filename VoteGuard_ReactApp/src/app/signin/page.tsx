@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "VoteGuard | Sign In",
-  description: "Sign In Page",
-};
+// export const metadata: Metadata = {
+//   title: "VoteGuard | Sign In",
+//   description: "Sign In Page",
+// };
 
 const SigninPage = () => {
   return (
@@ -171,3 +171,4 @@ const SigninPage = () => {
 };
 
 export default SigninPage;
+
