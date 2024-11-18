@@ -25,21 +25,7 @@ const packageData: Package[] = [
         votingDate: `Jan 13,2023`,
         status: "voted",
     },
-    {
-        name: "Voting topic",
-        votingDate: `Jan 13,2023`,
-        status: "voted",
-    },
-    {
-        name: "Voting topic",
-        votingDate: `Jan 13,2023`,
-        status: "Unvoted",
-    },
-    {
-        name: "Voting topic",
-        votingDate: `Jan 13,2023`,
-        status: "Unvoted",
-    },
+  
 ];
 
 const TableThree = () => {

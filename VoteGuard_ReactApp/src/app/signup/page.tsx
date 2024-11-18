@@ -3,8 +3,9 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "VoteGuard | Sign Up",
-  description: "Sign Up",
+  title: "Sign Up Page | Free Next.js Template for Startup and SaaS",
+  description: "This is Sign Up Page for Startup Nextjs Template",
+  // other metadata
 };
 
 const SignupPage = () => {
@@ -14,93 +15,149 @@ const SignupPage = () => {
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
-              <div className="shadow-three mx-auto max-w-[500px] rounded bg-white px-6 py-10 dark:bg-dark sm:p-[60px]">
+              <div className="shadow-three mx-auto max-w-[700px] rounded bg-white px-6 py-10 dark:bg-dark sm:p-[60px]">
                 <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl">
                   Create your account
                 </h3>
-                <p className="mb-11 text-center text-base font-medium text-body-color">
-                  It’s totally free and super easy
-                </p>
                 <form>
-                  <div className="mb-8">
-                    <label
-                      htmlFor="name"
-                      className="mb-3 block text-sm text-dark dark:text-white"
-                    >
-                      {" "}
-                      Full Name{" "}
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder="Enter your full name"
-                      className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
-                    />
-                  </div>
-                  <div className="mb-8">
-                    <label
-                      htmlFor="email"
-                      className="mb-3 block text-sm text-dark dark:text-white"
-                    >
-                      {" "}
-                      Email{" "}
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Enter your Email"
-                      className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
-                    />
-                  </div>
-                  <div className="mb-8">
-                    <label
-                      htmlFor="email"
-                      className="mb-3 block text-sm text-dark dark:text-white"
-                    >
-                      {" "}
-                      ID{" "}
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Enter your Email"
-                      className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
-                    />
-                  </div>
-                  <div className="mb-8">
-                    <label
-                      htmlFor="role"
-                      className="mb-3 block text-sm text-dark dark:text-white"
-                    >
-                      Select Role
-                    </label>
-                    <select
-                      name="role"
-                      id="role"
-                      className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
-                    >
-                      <option value="">Select your role</option>
-                      <option value="student">Student</option>
-                      <option value="professor">Professor</option>
-                    </select>
+                  <div className="mb-8 flex gap-4">
+                    <div className="w-1/2">
+                      <label
+                        htmlFor="firstName"
+                        className="mb-3 block text-sm text-dark dark:text-white"
+                      >
+                        First Name
+                      </label>
+                      <input
+                        type="text"
+                        name="firstName"
+                        required
+                        placeholder="Enter your first name"
+                        className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
+                      />
+                    </div>
+                    <div className="w-1/2">
+                      <label
+                        htmlFor="lastName"
+                        className="mb-3 block text-sm text-dark dark:text-white"
+                      >
+                        Last/Family Name
+                      </label>
+                      <input
+                        type="text"
+                        name="lastName"
+                        required
+                        placeholder="Enter your last name"
+                        className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
+                      />
+                    </div>
                   </div>
 
-                  <div className="mb-8">
-                    <label
-                      htmlFor="password"
-                      className="mb-3 block text-sm text-dark dark:text-white"
-                    >
-                      {" "}
-                      Your Password{" "}
-                    </label>
-                    <input
-                      type="password"
-                      name="password"
-                      placeholder="Enter your Password"
-                      className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
-                    />
+                  <div className="mb-8 flex gap-4">
+                    <div className="w-1/2">
+                      <label
+                        htmlFor="ID"
+                        className="mb-3 block text-sm text-dark dark:text-white"
+                      >
+                        ID Number
+                      </label>
+                      <input
+                        type="phonenumber"
+                        name="ID"
+                        required
+                        placeholder="Enter your ID number"
+                        className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
+                      />
+                    </div>
+                    <div className="w-1/2">
+                      <label
+                        htmlFor="email"
+                        className="mb-3 block text-sm text-dark dark:text-white"
+                      >
+                        University Email
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        placeholder="Enter your university email"
+                        className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-8 flex gap-4">
+                    <div className="w-1/2">
+                      <label
+                        htmlFor="gender"
+                        className="mb-3 block text-sm text-dark dark:text-white"
+                      >
+                        Gender
+                      </label>
+                      <select
+                        id="gender"
+                        name="gender"
+                        className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
+                      >
+                        <option value="">Select your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+                    <div className="w-1/2">
+                      <label
+                        htmlFor="role"
+                        className="mb-3 block text-sm text-dark dark:text-white"
+                      >
+                        Role
+                      </label>
+                      <select
+                        name="role"
+                        id="role"
+                        className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
+                      >
+                        <option value="">Select your role</option>
+                        <option value="student">Student</option>
+                        <option value="professor">Professor</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="mb-8 flex gap-4">
+                    <div className="w-1/2">
+                      <label
+                        htmlFor="password"
+                        className="mb-3 block text-sm text-dark dark:text-white"
+                      >
+                        Password
+                      </label>
+                      <input
+                        type="password"
+                        name="password"
+                        required
+                        placeholder="Enter your password"
+                        className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
+                      />
+                    </div>
+                    <div className="w-1/2">
+                      <label
+                        htmlFor="confirmPassword"
+                        className="mb-3 block text-sm text-dark dark:text-white"
+                      >
+                        Confirm Password
+                      </label>
+                      <input
+                        type="password"
+                        name="confirmPassword"
+                        required
+                        placeholder="Confirm your password"
+                        className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
+                      />
+                    </div>
                   </div>
                   <div className="mb-8 flex">
+
                     <label
                       htmlFor="checkboxLabel"
                       className="flex cursor-pointer select-none text-sm font-medium text-body-color"
@@ -145,14 +202,16 @@ const SignupPage = () => {
                     </label>
                   </div>
                   <div className="mb-6">
-                    <button className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90">
-                      Sign up
-                    </button>
+                    <Link href="/idCardScanner" className="text-primary hover:underline">
+                      <button className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90">
+                        Sign up
+                      </button>
+                    </Link>
                   </div>
                 </form>
                 <p className="text-center text-base font-medium text-body-color">
                   Already using Startup?{" "}
-                  <Link href="/User-Dashboard" className="text-primary hover:underline">
+                  <Link href="/signin" className="text-primary hover:underline">
                     Sign in
                   </Link>
                 </p>
@@ -160,6 +219,7 @@ const SignupPage = () => {
             </div>
           </div>
         </div>
+
         <div className="absolute left-0 top-0 z-[-1]">
           <svg
             width="1440"
@@ -168,6 +228,7 @@ const SignupPage = () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
+
             <mask
               id="mask0_95:1005"
               style={{ maskType: "alpha" }}

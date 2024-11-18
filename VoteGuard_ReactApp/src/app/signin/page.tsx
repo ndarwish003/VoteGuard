@@ -1,10 +1,12 @@
 import Link from "next/link";
+
 import { Metadata } from "next";
 
-// export const metadata: Metadata = {
-//   title: "VoteGuard | Sign In",
-//   description: "Sign In Page",
-// };
+export const metadata: Metadata = {
+  title: "Sign In Page | Free Next.js Template for Startup and SaaS",
+  description: "This is Sign In Page for Startup Nextjs Template",
+  // other metadata
+};
 
 const SigninPage = () => {
   return (
@@ -17,9 +19,7 @@ const SigninPage = () => {
                 <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl">
                   Sign in to your account
                 </h3>
-                <p className="mb-11 text-center text-base font-medium text-body-color">
-                  Login to your account for a faster checkout.
-                </p>
+                
                 <form>
                   <div className="mb-8">
                     <label
@@ -93,8 +93,10 @@ const SigninPage = () => {
                     </div>
                   </div>
                   <div className="mb-6">
-                    <Link href="/dashboard" className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90">
+                     <Link href="/electionpage">
+                    <button className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90">
                       Sign in
+                    </button>
                     </Link>
                   </div>
                 </form>
@@ -171,4 +173,3 @@ const SigninPage = () => {
 };
 
 export default SigninPage;
-
