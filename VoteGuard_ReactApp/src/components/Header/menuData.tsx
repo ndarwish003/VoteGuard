@@ -15,41 +15,16 @@ const menuData: Menu[] = [
   },
   {
     id: 4,
-    title: "More",
+    title: "Guide",
+    path: "/guide",
     newTab: false,
-    submenu: [
-      {
-        id: 41,
-        title: "Guide",
-        path: "/guide",
-        newTab: false,
-      },
-      {
-        id: 42,
-        title: "Contact Us",
-        path: "/contact",
-        newTab: false,
-      },
-      {
-        id: 43,
-        title: "Dashboard",
-        path: "/User-Dashboard",
-        newTab: false,
-      },
-      {
-        id: 44,
-        title: "History",
-        path: "/info-Dashboard",
-        newTab: false,
-      },
-      {
-        id: 43,
-        title: "Profile",
-        path: "/Profile",
-        newTab: false,
-      },
-    ],
   },
+  {
+    id: 5,
+    title: "Contact Us",
+    path: "/contact",
+    newTab: false,
+  }
 ];
 export default menuData;
 

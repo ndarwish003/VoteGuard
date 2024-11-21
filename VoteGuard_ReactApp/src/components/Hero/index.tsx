@@ -15,7 +15,7 @@ const Hero = () => {
                   Secure your votes!
                 </h1>
                 <p className="mb-12 text-base !leading-relaxed text-body-color dark:text-body-color-dark sm:text-lg md:text-xl">
-                Welcome to VoteGuard, a secure, transparent, and easy-to-use e-voting platform designed to ensure the integrity of every vote. Whether for academic decisions or student body elections, our blockchain-based system guarantees privacy, accuracy, and reliability. Vote with confidence knowing that your voice is protected and your vote is counted securely.
+                Welcome to VoteGuard, a secure, transparent, and easy-to-use E-voting platform designed to ensure the integrity of every vote. Whether for academic decisions or student body elections, our blockchain-based system guarantees privacy, accuracy, and reliability. Vote with confidence knowing that your voice is protected and your vote is counted securely.
                 </p>
                 <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                   <Link

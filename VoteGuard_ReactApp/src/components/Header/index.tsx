@@ -1,9 +1,9 @@
-"use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
+import { useAuth } from "context/AuthContext";
 
 const Header = () => {
   // Navbar toggle
@@ -14,6 +14,7 @@ const Header = () => {
 
   // Sticky Navbar
   const [sticky, setSticky] = useState(false);
+
   const handleStickyNavbar = () => {
     if (window.scrollY >= 80) {
       setSticky(true);
@@ -37,6 +38,31 @@ const Header = () => {
 
   const usePathName = usePathname();
 
+  // Get the authentication state from AuthContext
+  const { isLoggedIn, logout } = useAuth();  // Ensure logout is accessed from context
+
+  // Define the menuData based on the authentication state
+  const dynamicMenuData = isLoggedIn
+    ? [
+        ...menuData,
+        {
+          id: 6,
+          title: "More",
+          newTab: false,
+          submenu: [
+            { id: 61, title: "Dashboard", path: "/User-Dashboard", newTab: false },
+            { id: 62, title: "History", path: "/info-Dashboard", newTab: false },
+            { id: 63, title: "Profile", path: "/Profile", newTab: false },
+          ],
+        },
+      ]
+    : menuData; // If not logged in, show default menu data
+
+  const handleLogout = () => {
+    logout();  // Call logout to update context
+    redirect("/");  // Redirect to the homepage
+  };
+  
   return (
     <>
       <header
@@ -87,7 +113,7 @@ const Header = () => {
                     }`}
                 >
                   <ul className="block lg:flex lg:space-x-12">
-                    {menuData.map((menuItem, index) => (
+                    {dynamicMenuData.map((menuItem, index) => (
                       <li key={index} className="group relative">
                         {menuItem.path ? (
                           <Link
@@ -139,21 +165,30 @@ const Header = () => {
                 </nav>
               </div>
               <div className="flex items-center justify-end pr-16 lg:pr-0">
-                <Link
-                  href="/signin"
-                  className="hidden px-7 py-3 text-base font-medium text-dark hover:opacity-70 dark:text-white md:block"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  href="/signup"
-                  className="ease-in-up shadow-btn hover:shadow-btn-hover hidden rounded-sm bg-primary px-8 py-3 text-base font-medium text-white transition duration-300 hover:bg-opacity-90 md:block md:px-9 lg:px-6 xl:px-9"
-                >
-                  Sign Up
-                </Link>
-                <div>
-                  <ThemeToggler />
-                </div>
+                {!isLoggedIn ? (
+                  <>
+                    <Link
+                      href="/signin"
+                      className="hidden px-7 py-3 text-base font-medium text-dark hover:opacity-70 dark:text-white md:block"
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      href="/signup"
+                      className="ease-in-up shadow-btn hover:shadow-btn-hover hidden rounded-sm bg-primary px-8 py-3 text-base font-medium text-white transition duration-300 hover:bg-opacity-90 md:block md:px-9 lg:px-6 xl:px-9"
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                ) : (
+                  <button
+                    onClick={handleLogout} // Now calling the logout function from context
+                    className="ease-in-up shadow-btn hover:shadow-btn-hover rounded-sm bg-primary px-8 py-3 text-base font-medium text-white transition duration-300 hover:bg-opacity-90"
+                  >
+                    Log Out
+                  </button>
+                )}
+                <ThemeToggler />
               </div>
             </div>
           </div>
@@ -164,5 +199,3 @@ const Header = () => {
 };
 
 export default Header;
-
-

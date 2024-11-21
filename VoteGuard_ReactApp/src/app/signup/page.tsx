@@ -20,7 +20,7 @@ const SignupPage = () => {
                   Create your account
                 </h3>
                 <form>
-                  <div className="mb-8 flex gap-4">
+                  <div className="mb-8 mt-10 flex gap-4">
                     <div className="w-1/2">
                       <label
                         htmlFor="firstName"

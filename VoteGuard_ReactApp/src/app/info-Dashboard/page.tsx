@@ -37,6 +37,9 @@ const TableThree = () => {
                 className="pt-16 md:pt-20 lg:pt-28 mb-20 min-h-[500px]"
             >
                 <div className="container mx-auto">
+                    <h1 className="text-3xl font-bold text-black dark:text-white mb-8">                         
+                        History                     
+                    </h1> 
                     {/* Wrapper with overflow auto for scroll containment */}
                     <div className="border-body-color/[.15] pb-16 dark:border-white/[.15] md:pb-20 lg:pb-28 mb-1 overscroll-contain max-h-[600px] overflow-auto">
                         {/* Responsive table wrapper */}
