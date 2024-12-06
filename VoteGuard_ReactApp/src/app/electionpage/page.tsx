@@ -34,11 +34,6 @@ const VotingForm = () => {
       label: "Option 4",
       image: "https://th.bing.com/th/id/R.54d2fa733864f398bfc32b58f59199c7?rik=pEWjjhSaGkaH9A&pid=ImgRaw&r=0",
     },
-    {
-      id: "option5",
-      label: "Option 5",
-      image: "https://th.bing.com/th/id/R.54d2fa733864f398bfc32b58f59199c7?rik=pEWjjhSaGkaH9A&pid=ImgRaw&r=0",
-    },
   ];
 
   useEffect(() => {
@@ -55,7 +50,7 @@ const VotingForm = () => {
       setUndoTimer(true);
       const timerId = setTimeout(() => {
         setUndoTimer(false);
-        router.push("/thank-you"); // Redirect to thank-you page after 5 seconds
+        router.push("/User-Dashboard");
       }, 5000);
       setTimer(timerId);
     } else {
@@ -84,7 +79,7 @@ const VotingForm = () => {
     // Call handleVote when user confirms
     handleVote();
     // Redirect to '/thank-you' after confirming
-    router.push("/thank-you");
+    router.push("/User-Dashboard?thankYou=true");
   };
 
   const handleConfirmNo = () => {
