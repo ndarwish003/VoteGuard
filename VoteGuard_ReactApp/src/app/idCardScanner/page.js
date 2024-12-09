@@ -1,23 +1,27 @@
 "use client";
-import React, { useState, useRef } from 'react';
-import { useRouter } from 'next/navigation'; 
-import Webcam from 'react-webcam';
-import Tesseract from 'tesseract.js';
+import React, { useState, useRef } from "react";
+import { useRouter } from "next/navigation"; // Import useRouter
+import Webcam from "react-webcam";
+import Tesseract from "tesseract.js";
+
+const preprocessImage = (image) => {
+  return image; // Placeholder for image preprocessing logic if needed
+};
 
 const IdCardScanner = () => {
-  const router = useRouter(); // Initialize router
-  const [scannedText, setScannedText] = useState('');
+  const router = useRouter(); // Initialize useRouter
+  const webcamRef = useRef(null);
+  const [scannedText, setScannedText] = useState("");
   const [cardDetails, setCardDetails] = useState(null);
   const [isScanning, setIsScanning] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const webcamRef = useRef(null);
+  const [error, setError] = useState("");
 
   const toggleScanning = () => {
     setIsScanning((prev) => !prev);
-    setScannedText('');
+    setScannedText("");
     setCardDetails(null);
-    setError('');
+    setError("");
   };
 
   const captureImage = () => {
@@ -27,15 +31,27 @@ const IdCardScanner = () => {
     }
   };
 
+  const handleUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        processImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const processImage = (image) => {
     setLoading(true);
-    Tesseract.recognize(image, 'eng+ara', { logger: (m) => console.log(m) })
+    const preprocessedImage = preprocessImage(image);
+    Tesseract.recognize(preprocessedImage, "eng+ara", { logger: (m) => console.log(m) })
       .then(({ data: { text } }) => {
         setScannedText(text);
         saveCardDetails(text);
       })
-      .catch((err) => {
-        setError('Failed to process the image. Please try again.');
+      .catch(() => {
+        setError("Failed to process the image. Please try again.");
       })
       .finally(() => {
         setLoading(false);
@@ -48,100 +64,98 @@ const IdCardScanner = () => {
   };
 
   const extractDetailsFromText = (text) => {
-    const lines = text.split('\n');
-    const name = extractName(lines);
-    const studentId = extractStudentId(text);
-    const civilId = extractCivilId(text);
-    const college = extractCollege(lines); 
-    const issueDate = extractIssueDate(text); 
+    const lines = text.split("\n");
+    const name = extractField(lines, "الاسم:") || "Unknown";
+    const college = extractField(lines, "الكلية:") || "Unknown";
+    const studentId = extractPattern(text, /\b\d{10}\b/) || "Unknown";
+    const civilId = extractPattern(text, /\b\d{12,15}\b/) || "Unknown";
+    const issueDate = extractPattern(text, /\d{4}\/\d{4}|\d{2}\/\d{2}\/\d{4}|\d{2}-\d{2}-\d{4}/) || "Unknown";
+    const university = text.includes("جامعة الكويت") ? "جامعة الكويت" : "Unknown";
+    const studentType = text.includes("هوية طالب") ? "طالب" : "Unknown";
 
-    return {
-      name: name,
-      studentId: studentId,
-      civilId: civilId,
-      college: college,
-      issueDate: issueDate,
-    };
+    return { studentType, university, name, college, studentId, civilId, issueDate };
   };
 
-  const extractName = (lines) => {
-    const nameLine = lines.find(line => line.includes('الاسم:')) || '';
-    return nameLine.replace('الاسم:', '').trim() || 'Unknown';
+  const extractField = (lines, field) => {
+    const line = lines.find((line) => line.includes(field)) || "";
+    return line.replace(field, "").trim();
   };
 
-  const extractStudentId = (text) => {
-    const studentIdMatch = text.match(/\b\d{10}\b/);
-    return studentIdMatch ? studentIdMatch[0] : 'Unknown';
-  };
-
-  const extractCivilId = (text) => {
-    const civilIdMatch = text.match(/\b\d{12,15}\b/); 
-    return civilIdMatch ? civilIdMatch[0] : 'Unknown';
-  };
-
-  const extractCollege = (lines) => {
-    const collegeLine = lines.find(line => line.includes('الكلية:')) || '';
-    return collegeLine.replace('الكلية:', '').trim() || 'Unknown';
-  };
-
-  const extractIssueDate = (text) => {
-    const dateMatch = text.match(/(\d{4}\/\d{4}|\d{2}\/\d{2}\/\d{4}|\d{2}-\d{2}-\d{4})/);
-    if (dateMatch) {
-      return dateMatch[0];
-    }
-    return 'Unknown';
+  const extractPattern = (text, pattern) => {
+    const match = text.match(pattern);
+    return match ? match[0] : null;
   };
 
   const handleSubmit = () => {
-    console.log('Submitting:', cardDetails);
+    // Navigate to the next page
     router.push("/takecapture");
   };
 
+  const isDetailsComplete = (details) => {
+    return (
+      details &&
+      details.studentType === "طالب" &&
+      details.university === "جامعة الكويت" &&
+      details.name !== "Unknown" &&
+      details.college !== "Unknown" &&
+      details.studentId !== "Unknown" &&
+      details.civilId !== "Unknown" &&
+      details.issueDate !== "Unknown"
+    );
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-101 to-blue-100 py-12">
-      <div className="flex flex-col items-center justify-center w-full sm:w-4/5 md:w-3/4 lg:w-1/2 xl:w-1/3 bg-blue-200 p-8 rounded-xl shadow-2xl">
-        <h1 className="text-3xl font-extrabold text-gray-800 mb-8 text-center">ID Card Scanner</h1>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-150 to-blue-250 py-12">
+      <div className="flex flex-col items-center w-full max-w-md bg-blue-100 p-8 rounded-xl shadow-lg">
+        <h1 className="text-2xl font-bold text-gray-800 mb-6">ID Card Scanner</h1>
 
-       
-        <div className="w-full mb-6">
-          {isScanning ? (
-            <div>
-              <Webcam
-                audio={false}
-                ref={webcamRef}
-                screenshotFormat="image/jpg"
-                width="100%"
-                videoConstraints={{
-                  facingMode: 'environment',
-                }}
-              />
-              <button
-                onClick={captureImage}
-                disabled={loading}
-                className="w-full mt-4 py-2 px-4 text-lg font-semibold text-white bg-blue-500 rounded-lg disabled:bg-gray-400 hover:bg-blue-600"
-              >
-                {loading ? 'Processing...' : 'Capture ID Card'}
-              </button>
-            </div>
-          ) : (
-            <div>
-              <p className=" text-gray-800 mb-8">Click below to start scanning...</p>
-              <button
-                onClick={toggleScanning}
-                className="w-full py-2 px-4 text-lg font-semibold text-white bg-blue-500 hover:bg-blue-600 rounded-lg"
-              >
-                Start Scanning
-              </button>
-            </div>
-          )}
-        </div>
+        {isScanning ? (
+          <div className="w-full">
+            <Webcam
+              audio={false}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              className="w-full rounded-lg"
+              videoConstraints={{ facingMode: "environment" }}
+            />
+            <button
+              onClick={captureImage}
+              disabled={loading}
+              className="w-full mt-4 py-2 px-4 text-white bg-blue-900 rounded-lg disabled:bg-gray-400 hover:bg-blue-600"
+            >
+              {loading ? "Processing..." : "Capture ID Card"}
+            </button>
+          </div>
+        ) : (
+          <div className="w-full">
+            <button
+              onClick={toggleScanning}
+              className="w-full py-2 px-4 mb-4 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+            >
+              Start Scanning
+            </button>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleUpload}
+              className="w-full py-2 px-4 text-gray-700 bg-white border border-gray-300 rounded-lg"
+            />
+          </div>
+        )}
 
-       
         {cardDetails && (
-          <div className="w-full mt-6 p-4 bg-blue-200 rounded-lg shadow-lg">
-            <h3 className="text-xl font-semibold text-gray-700 mb-2 text-right">هویة طالب</h3>
-            <table className="w-full text-right table-auto">
+          <div className="mt-6 w-full bg-blue-50 p-4 rounded-lg shadow">
+            <h2 className="text-lg font-semibold text-gray-800 mb-2">Scanned Details</h2>
+            <table className="w-full text-sm text-right">
               <tbody>
+                <tr>
+                  <td className="py-2 px-4 border-b text-black">{cardDetails.studentType}</td>
+                  <td className="py-2 px-4 border-b text-black">: هوية</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-4 border-b text-black">{cardDetails.university}</td>
+                  <td className="py-2 px-4 border-b text-black">: جامعة</td>
+                </tr>
                 <tr>
                   <td className="py-2 px-4 border-b text-black">{cardDetails.name}</td>
                   <td className="py-2 px-4 border-b text-black">: الاسم</td>
@@ -164,21 +178,20 @@ const IdCardScanner = () => {
                 </tr>
               </tbody>
             </table>
-
-            
-            <button
-              onClick={handleSubmit}
-              className="mt-4 w-full py-2 px-4 text-lg font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-600"
-            >
-              Submit
-            </button>
+            {isDetailsComplete(cardDetails) && (
+              <button
+                onClick={handleSubmit}
+                className="mt-4 w-full py-2 px-4 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+              >
+                Submit
+              </button>
+            )}
           </div>
         )}
 
-       
         {error && (
-          <div className="w-full mt-6 p-4 bg-red-500 text-white rounded-lg">
-            <p>{error}</p>
+          <div className="mt-4 w-full bg-red-100 p-2 text-sm text-red-600 rounded">
+            {error}
           </div>
         )}
       </div>

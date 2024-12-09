@@ -11,7 +11,6 @@ const TakePicture = () => {
   const capture = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setCapturedImage(imageSrc);
-    saveImage(imageSrc); // Save the image
   };
 
   // Function to save the image as a file
@@ -25,11 +24,16 @@ const TakePicture = () => {
   };
 
   const handleSubmit = () => {
-    router.push("/electionpage");
+    if (capturedImage) {
+      saveImage(capturedImage); // Save the captured image
+      router.push("/electionpage"); // Navigate to the next page
+    } else {
+      alert("Please capture an image first!");
+    }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-700 p-8 lg:p-16">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-700 p-8 lg:p-16 text-white">
       <h1 className="text-3xl font-bold mb-6">Take a Picture</h1>
       <Webcam
         audio={false}
@@ -43,14 +47,18 @@ const TakePicture = () => {
       >
         Capture Photo
       </button>
-      
+
       {capturedImage && (
         <div className="flex flex-col items-center w-full max-w-3xl">
           <h2 className="text-xl font-bold mb-4">Captured Image:</h2>
-          <img src={capturedImage} alt="Captured" className="w-full max-w-md rounded-lg shadow-lg mb-6" />
+          <img
+            src={capturedImage}
+            alt="Captured"
+            className="w-full max-w-md rounded-lg shadow-lg mb-6"
+          />
           <button
             onClick={handleSubmit}
-            className="text-xl bg-blue-800 text-white py-2 px-4 rounded font-semibold hover:bg-blue-500 transition-all duration-300 mb-6"
+            className="bg-blue-800 text-white py-2 px-4 rounded font-semibold hover:bg-blue-500 transition-all duration-300 mb-6"
           >
             Submit
           </button>
