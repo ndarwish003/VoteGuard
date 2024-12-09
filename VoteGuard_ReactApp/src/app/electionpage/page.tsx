@@ -10,33 +10,29 @@ const VotingForm = () => {
   const [undoTimer, setUndoTimer] = useState(false);
   const [timer, setTimer] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false); // State to manage confirmation dialog visibility
   const router = useRouter();
 
   const options = [
     {
       id: "option1",
       label: "Option 1",
-      image: "https://th.bing.com/th/id/R.54d2fa733864f398bfc32b58f59199c7?rik=pEWjjhSaGkaH9A&pid=ImgRaw&r=0", // Replace with actual image URL
+      image: "https://th.bing.com/th/id/R.54d2fa733864f398bfc32b58f59199c7?rik=pEWjjhSaGkaH9A&pid=ImgRaw&r=0",
     },
     {
       id: "option2",
       label: "Option 2",
-      image: "https://th.bing.com/th/id/R.54d2fa733864f398bfc32b58f59199c7?rik=pEWjjhSaGkaH9A&pid=ImgRaw&r=0", // Replace with actual image URL
+      image: "https://th.bing.com/th/id/R.54d2fa733864f398bfc32b58f59199c7?rik=pEWjjhSaGkaH9A&pid=ImgRaw&r=0",
     },
     {
       id: "option3",
       label: "Option 3",
-      image: "https://th.bing.com/th/id/R.54d2fa733864f398bfc32b58f59199c7?rik=pEWjjhSaGkaH9A&pid=ImgRaw&r=0", // Replace with actual image URL
+      image: "https://th.bing.com/th/id/R.54d2fa733864f398bfc32b58f59199c7?rik=pEWjjhSaGkaH9A&pid=ImgRaw&r=0",
     },
     {
       id: "option4",
       label: "Option 4",
-      image: "https://th.bing.com/th/id/R.54d2fa733864f398bfc32b58f59199c7?rik=pEWjjhSaGkaH9A&pid=ImgRaw&r=0", // Replace with actual image URL
-    },
-    {
-      id: "option5",
-      label: "Option 5",
-      image: "https://th.bing.com/th/id/R.54d2fa733864f398bfc32b58f59199c7?rik=pEWjjhSaGkaH9A&pid=ImgRaw&r=0", // Replace with actual image URL
+      image: "https://th.bing.com/th/id/R.54d2fa733864f398bfc32b58f59199c7?rik=pEWjjhSaGkaH9A&pid=ImgRaw&r=0",
     },
   ];
 
@@ -54,7 +50,7 @@ const VotingForm = () => {
       setUndoTimer(true);
       const timerId = setTimeout(() => {
         setUndoTimer(false);
-        router.push("/lastpage");
+        router.push("/User-Dashboard");
       }, 5000);
       setTimer(timerId);
     } else {
@@ -68,6 +64,27 @@ const VotingForm = () => {
     setUndoTimer(false);
     setIsSubmitted(false);
     clearTimeout(timer);
+  };
+
+  const handleConfirmation = () => {
+    // Show confirmation dialog when submitting
+    if (selectedOption) {
+      setShowConfirmation(true);
+    } else {
+      setVoteStatus("Please select an option before submitting your vote.");
+    }
+  };
+
+  const handleConfirmYes = () => {
+    // Call handleVote when user confirms
+    handleVote();
+    // Redirect to '/thank-you' after confirming
+    router.push("/User-Dashboard?thankYou=true");
+  };
+
+  const handleConfirmNo = () => {
+    // Hide confirmation dialog when user clicks "No"
+    setShowConfirmation(false);
   };
 
   return (
@@ -115,7 +132,7 @@ const VotingForm = () => {
                         <img
                           src={option.image}
                           alt={option.label}
-                          className="w-12 h-12 rounded-full ml-4" // Adjust image size and add space from the name
+                          className="w-12 h-12 rounded-full ml-4"
                         />
                       </label>
                     ))}
@@ -143,19 +160,12 @@ const VotingForm = () => {
                   </div>
                 )}
 
-                {!isSubmitted ? (
+                {!isSubmitted && (
                   <button
-                    onClick={handleVote}
+                    onClick={handleConfirmation}
                     className="w-full bg-primary text-white py-3 rounded text-center font-semibold hover:bg-primary/90 transition-all duration-200"
                   >
-                    SUBMITE YOUR VOTE &gt;
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => router.push("/lastpage")}
-                    className="w-full bg-primary text-white py-3 rounded text-center font-semibold hover:bg-primary/90 transition-all duration-200"
-                  >
-                    GO TO NEXT PAGE
+                    SUBMIT YOUR VOTE
                   </button>
                 )}
               </div>
@@ -163,6 +173,30 @@ const VotingForm = () => {
           </div>
         </div>
       </div>
+
+      {/* Confirmation Dialog */}
+      {showConfirmation && (
+        <div className="absolute inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-20">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-1/3 text-center dark:text-black">
+            <p className="text-xl mb-4 dark:text-black">Are you sure you'd like to proceed with your vote?</p>
+            <div className="flex justify-around">
+              <button
+                onClick={handleConfirmYes}
+                className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-400"
+              >
+                Yes
+              </button>
+              <button
+                onClick={handleConfirmNo}
+                className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-400"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="absolute left-0 top-0 z-[-1]">
         <svg
           width="1440"
@@ -185,39 +219,10 @@ const VotingForm = () => {
           <g mask="url(#mask0_95:1005)">
             <path
               opacity="0.1"
-              d="M1086.96 297.978L632.959 554.978L935.625 535.926L1086.96 297.978Z"
+              d="M1086.96 297.042C1037.58 386.143 970.19 444.366 905.262 513.17C840.335 581.973 768.86 661.014 676.022 699.704C583.184 738.395 479.563 736.697 374.43 691.289C269.296 645.88 155.982 556.679 55.4869 462.946C-45.0082 369.214 -68.2058 269.507 -73.3952 169.325L-73.3951 0.337051L1440 0.337051L1440 297.042L1086.96 297.042Z"
               fill="url(#paint0_linear_95:1005)"
             />
-            <path
-              opacity="0.1"
-              d="M1324.5 755.5L1450 687V886.5L1324.5 967.5L-10 288L1324.5 755.5Z"
-              fill="url(#paint1_linear_95:1005)"
-            />
           </g>
-          <defs>
-            <linearGradient
-              id="paint0_linear_95:1005"
-              x1="1178.4"
-              y1="151.853"
-              x2="780.959"
-              y2="453.581"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="#4A6CF7" />
-              <stop offset="1" stopColor="#4A6CF7" stopOpacity="0" />
-            </linearGradient>
-            <linearGradient
-              id="paint1_linear_95:1005"
-              x1="160.5"
-              y1="220"
-              x2="1099.45"
-              y2="1192.04"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="#4A6CF7" />
-              <stop offset="1" stopColor="#4A6CF7" stopOpacity="0" />
-            </linearGradient>
-          </defs>
         </svg>
       </div>
     </div>

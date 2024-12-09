@@ -7,6 +7,9 @@ const Profile = () => {
         <>
             <section id="about" className=" relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
                 <div className="container ">
+                    <h1 className="text-3xl font-bold text-black dark:text-white mb-8">                         
+                        Profile                     
+                    </h1>
                     <div className="grid grid-cols-5 gap-8">
                         <div className="col-span-5 xl:col-span-3">
                             <div className="shadow-three mx-auto  rounded-sm bg-white px-6 py-10 dark:bg-dark ">

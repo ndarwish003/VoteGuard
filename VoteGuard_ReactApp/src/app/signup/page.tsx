@@ -20,7 +20,7 @@ const SignupPage = () => {
                   Create your account
                 </h3>
                 <form>
-                  <div className="mb-8 flex gap-4">
+                  <div className="mb-8 mt-10 flex gap-4">
                     <div className="w-1/2">
                       <label
                         htmlFor="firstName"
@@ -41,7 +41,7 @@ const SignupPage = () => {
                         htmlFor="lastName"
                         className="mb-3 block text-sm text-dark dark:text-white"
                       >
-                        Last/Family Name
+                        Last Name
                       </label>
                       <input
                         type="text"
@@ -102,29 +102,8 @@ const SignupPage = () => {
                         <option value="">Select your gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
-                        <option value="other">Other</option>
                       </select>
                     </div>
-                    <div className="w-1/2">
-                      <label
-                        htmlFor="role"
-                        className="mb-3 block text-sm text-dark dark:text-white"
-                      >
-                        Role
-                      </label>
-                      <select
-                        name="role"
-                        id="role"
-                        className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
-                      >
-                        <option value="">Select your role</option>
-                        <option value="student">Student</option>
-                        <option value="professor">Professor</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="mb-8 flex gap-4">
                     <div className="w-1/2">
                       <label
                         htmlFor="password"
@@ -140,6 +119,9 @@ const SignupPage = () => {
                         className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                       />
                     </div>
+                  </div>
+
+                  <div className="mb-8 flex gap-4">
                     <div className="w-1/2">
                       <label
                         htmlFor="confirmPassword"

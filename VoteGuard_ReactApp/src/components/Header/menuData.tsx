@@ -15,47 +15,17 @@ const menuData: Menu[] = [
   },
   {
     id: 4,
-    title: "More",
+    title: "Guide",
+    path: "/guide",
     newTab: false,
-    submenu: [
-      {
-        id: 41,
-        title: "Guide",
-        path: "/guide",
-        newTab: false,
-      },
-      {
-        id: 42,
-        title: "Contact Us",
-        path: "/contact",
-        newTab: false,
-      }
-    ],
   },
   {
-    id: 3,
-    title: "User-Dashboard",
+    id: 5,
+    title: "Contact Us",
+    path: "/contact",
     newTab: false,
-    submenu: [
-      {
-        id: 41,
-        title: "Dashboard",
-        path: "/User-Dashboard",
-        newTab: false,
-      },
-      {
-        id: 42,
-        title: "info",
-        path: "/info-Dashboard",
-        newTab: false,
-      },
-      {
-        id: 43,
-        title: "Protfile",
-        path: "/Profile",
-        newTab: false,
-      }
-    ],
   }
 ];
 export default menuData;
+
+{/* Involve useState such that the the menu will include the necessary pages for a logged in user, such as dashboard, history, and profile. Adjust the header based on logging in to the system */}
