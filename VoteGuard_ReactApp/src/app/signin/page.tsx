@@ -72,17 +72,14 @@ const SigninPage = () => {
                     <div className="text-red-500 text-sm mb-4">{error}</div> // Show error if invalid credentials
                   )}
                   <div className="mb-6">
-<<<<<<< HEAD
-                     <Link href="/BiometricAuth">
-                    <button className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90">
-=======
-                    <button
-                      type="submit"
-                      className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90"
-                    >
->>>>>>> 4c5c4f51d13582ef47093fb3d85dc141a0b76bad
-                      Sign in
-                    </button>
+                    <Link href="/BiometricAuth">
+                      <button
+                        type="submit"
+                        className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90"
+                      >
+                        Sign in
+                      </button>
+                    </Link>
                   </div>
                 </form>
                 <p className="text-center text-base font-medium text-body-color">
