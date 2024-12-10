@@ -29,16 +29,17 @@ const Header = () => {
   // Define dynamic menuData based on login status
   const dynamicMenuData = isLoggedIn
     ? [
-        { id: 1, title: "Dashboard", path: "/User-Dashboard", newTab: false },
-        { id: 2, title: "History", path: "/info-Dashboard", newTab: false },
-        {
-          id: 3,
-          title: "More",
-          submenu: [
-            ...menuData,
-          ],
-        },
-      ]
+      { id: 1, title: "Dashboard", path: "/User-Dashboard", newTab: false },
+      { id: 2, title: "History", path: "/info-Dashboard", newTab: false },
+      { id: 9, title: "Admin-Dashboard", path: "/Admin-Dashboard", newTab: false },
+      {
+        id: 3,
+        title: "More",
+        submenu: [
+          ...menuData,
+        ],
+      },
+    ]
     : menuData;
 
   const handleLogout = () => {
