@@ -25,7 +25,7 @@ const EventList: React.FC = () => {
     if (storedVotedEvents) {
       const parsedEvents = JSON.parse(storedVotedEvents);
       // Filter events that have already been voted for
-      setEvents((prevEvents) => 
+      setEvents((prevEvents) =>
         prevEvents.filter((event) => !parsedEvents.some((votedEvent) => votedEvent.id === event.id))
       );
     }
@@ -38,12 +38,12 @@ const EventList: React.FC = () => {
       router.push(`/electionpage`);
 
       // Update voted events in localStorage
-      const updatedVotedEvents = JSON.parse(localStorage.getItem('votedEvents') || '[]'); 
+      const updatedVotedEvents = JSON.parse(localStorage.getItem('votedEvents') || '[]');
       updatedVotedEvents.push(event);
       localStorage.setItem('votedEvents', JSON.stringify(updatedVotedEvents));
 
       // Update events state (remove voted event)
-      setEvents((prevEvents) => prevEvents.filter((e) => e.id !== eventId)); 
+      setEvents((prevEvents) => prevEvents.filter((e) => e.id !== eventId));
     }
   };
 
@@ -72,7 +72,7 @@ const EventList: React.FC = () => {
             Dashboard
           </h1>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 mb-20"> 
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 mb-20">
             {/* Added mb-8 for space below the grid */}
             {events.map((event) => (
               <div
