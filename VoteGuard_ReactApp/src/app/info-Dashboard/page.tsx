@@ -5,12 +5,20 @@ const TableThree = () => {
   const [votedEvents, setVotedEvents] = useState([]); 
 
   useEffect(() => {
+
     const storedVotedEvents = localStorage.getItem('votedEvents');
-    if (storedVotedEvents) {
+
+    if (storedVotedEvents) 
+    {
       setVotedEvents(JSON.parse(storedVotedEvents)); 
     }
+
+    document.title = "VoteGuard | History";
   }, []); 
 
+  
+  useEffect(() => {
+  }, []);
   return (
     <>
       <section 

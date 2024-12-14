@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Import useRouter
 import Webcam from "react-webcam";
 import Tesseract from "tesseract.js";
@@ -28,17 +28,6 @@ const IdCardScanner = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     if (imageSrc) {
       processImage(imageSrc);
-    }
-  };
-
-  const handleUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        processImage(reader.result);
-      };
-      reader.readAsDataURL(file);
     }
   };
 
@@ -104,6 +93,10 @@ const IdCardScanner = () => {
     );
   };
 
+  useEffect(() => {
+    document.title = "VoteGuard | ID Scan";
+  }, []);
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-150 to-blue-250 py-12">
       <div className="flex flex-col items-center w-full max-w-md bg-blue-100 p-8 rounded-xl shadow-lg">
@@ -130,16 +123,11 @@ const IdCardScanner = () => {
           <div className="w-full">
             <button
               onClick={toggleScanning}
-              className="w-full py-2 px-4 mb-4 text-white bg-blue-500 rounded-lg hover:bg-blue-600"
+              className="w-full py-2 px-4 mb-4 text-white rounded-lg hover:bg-opacity-90"
+              style={{ backgroundColor: '#4A6CF7' }}
             >
               Start Scanning
             </button>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleUpload}
-              className="w-full py-2 px-4 text-gray-700 bg-white border border-gray-300 rounded-lg"
-            />
           </div>
         )}
 

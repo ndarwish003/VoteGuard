@@ -1,9 +1,11 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import { useRouter } from "next/navigation";
 import Webcam from "react-webcam";
+import { AuthContext } from "context/AuthContext";
 
 const BiometricAuth = () => {
+  const { login } = useContext(AuthContext); // Access the login function from context
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const router = useRouter();
@@ -35,6 +37,7 @@ const BiometricAuth = () => {
 
         
         if (result.authenticated) {
+          login();
           router.push("/User-Dashboard");
         } 
       } catch (error) {
@@ -67,6 +70,9 @@ const BiometricAuth = () => {
   };
 
   useEffect(() => {
+
+    document.title = "VoteGuard | Authentication";
+
     if (isLoading) {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext("2d");

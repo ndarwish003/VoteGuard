@@ -1,14 +1,179 @@
+"use client";
+
 import Link from "next/link";
-
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Sign Up Page | Free Next.js Template for Startup and SaaS",
-  description: "This is Sign Up Page for Startup Nextjs Template",
-  // other metadata
-};
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const SignupPage = () => {
+  const router = useRouter();
+  const [id, setId] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
+  const [gender, setGender] = useState('');
+  const [idError, setIdError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setconfirmPasswordError] = useState('');
+  const [error, setError] = useState('');
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+
+  
+  const togglePrivacyModal = () => {
+    setShowPrivacyModal((prev) => !prev);
+  };
+  
+  // ID validation function
+  const validateId = (id: string): string => {
+    
+    const idPattern = /^2\d{9}$/;  // Checks for 10 digits, starting with '2'
+    
+    if (!idPattern.test(id)) 
+    {
+      return "ID must be exactly 10 digits and start with '2'.";
+    }
+
+    return "";
+  };
+
+  // Email validation function: checks if the email is of the format "s{id}@ku.edu.kw"
+  const validateEmail = (email: string, id: string): string => {
+    
+    const expectedEmail = `s${id}@ku.edu.kw`;
+    
+    if (email !== expectedEmail) 
+    {
+      return `Email must be "s{your_id}@ku.edu.kw"`;
+    }
+
+    return "";
+  };
+
+  // Password strength validation function
+  const validatePasswordStrength = (password: string): string => {
+    const minLength = 8;
+    const maxLength = 16;
+    const passwordStrengthPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*_]{8,16}$/;
+
+    if (password.length < minLength || password.length > maxLength) 
+    {
+      return `Password must be between ${minLength} and ${maxLength} characters long.`;
+    }
+
+    if (!passwordStrengthPattern.test(password)) 
+    {
+      return "Password must include at least one letter, one number, and one special character.";
+    }
+
+    return "";
+  };
+
+  const validateConfirmPwd = (confirmPwd: string) : string => {
+    if (password !== confirmPwd) 
+    {
+        setconfirmPasswordError("Passwords do not match.");
+        return;
+    }
+
+    return "";
+  }
+
+  const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setId(value);
+    setIdError(validateId(value));  // Validate ID on change
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setEmail(value);
+    setEmailError(validateEmail(value, id));  // Validate email on change
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setPassword(value);
+    setPasswordError(validatePasswordStrength(value));  // Validate password on change
+  };
+
+  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setConfirmPassword(value);
+    setconfirmPasswordError(validateConfirmPwd(value));
+  };
+
+  // Form submission handler
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!fname || !lname || !id || !email || !password || !confirmPassword || !gender) 
+    {
+      setError("Please fill in all fields.");
+      return;
+    }
+    const checkbox = document.getElementById("checkboxLabel") as HTMLInputElement;
+    const privacyPolicyError = document.getElementById('privacyPolicyError') as HTMLDivElement;
+  
+    // Hide the error message initially
+    privacyPolicyError.style.display = 'none';
+  
+    // Validate the checkbox
+    if (!checkbox.checked) {
+      setError("You must agree to the privacy policy.");
+      privacyPolicyError.style.display = 'block'; // Show error message if not checked
+      return; // Prevent form submission if validation fails
+    }
+
+    if (password !== confirmPassword) 
+    {
+      setconfirmPasswordError("Passwords do not match.");
+      return;
+    }
+
+    if (!idError && !emailError && !passwordError) 
+    {
+      try 
+      {
+        const response = await fetch("http://127.0.0.1:5000/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ fname, lname, id, email, gender, password }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) 
+        {
+          console.log("Success:", result);
+          router.push("/idCardScanner");
+        } 
+        else 
+        {
+          setError(result.message || "Signup failed!");
+        }
+      } 
+      
+      catch (err) 
+      {
+        console.error("Error:", err);
+        setError("An unexpected error occurred.");
+      }
+    } 
+    
+    else 
+    {
+      setError("Please enter your credentials correctly submitting.");
+    }
+  };
+
+  useEffect(() => {
+    document.title = "VoteGuard | Sign Up";
+  }, []);
+  
   return (
     <>
       <section className="relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
@@ -19,7 +184,7 @@ const SignupPage = () => {
                 <h3 className="mb-3 text-center text-2xl font-bold text-black dark:text-white sm:text-3xl">
                   Create your account
                 </h3>
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="mb-8 mt-10 flex gap-4">
                     <div className="w-1/2">
                       <label
@@ -33,6 +198,8 @@ const SignupPage = () => {
                         name="firstName"
                         required
                         placeholder="Enter your first name"
+                        value={fname}
+                        onChange={(e) => setFname(e.target.value)}
                         className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                       />
                     </div>
@@ -48,6 +215,8 @@ const SignupPage = () => {
                         name="lastName"
                         required
                         placeholder="Enter your last name"
+                        value={lname}
+                        onChange={(e) => setLname(e.target.value)}
                         className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                       />
                     </div>
@@ -62,27 +231,32 @@ const SignupPage = () => {
                         ID Number
                       </label>
                       <input
-                        type="phonenumber"
+                        type="text"
                         name="ID"
                         required
                         placeholder="Enter your ID number"
+                        value={id}
+                        onChange={handleIdChange}
                         className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                       />
                     </div>
                     <div className="w-1/2">
-                      <label
-                        htmlFor="email"
-                        className="mb-3 block text-sm text-dark dark:text-white"
-                      >
-                        University Email
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        required
-                        placeholder="Enter your university email"
-                        className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
-                      />
+                    <label
+                      htmlFor="email"
+                      className="mb-3 block text-sm text-dark dark:text-white"
+                    >
+                      University Email
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      placeholder="Enter your university email"
+                      value={email}
+                      onChange={handleEmailChange}
+                      className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
+                    />
+                    {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
                     </div>
                   </div>
 
@@ -97,6 +271,9 @@ const SignupPage = () => {
                       <select
                         id="gender"
                         name="gender"
+                        required
+                        value={gender}
+                        onChange={(e) => setGender(e.target.value)}
                         className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                       >
                         <option value="">Select your gender</option>
@@ -112,12 +289,15 @@ const SignupPage = () => {
                         Password
                       </label>
                       <input
-                        type="password"
-                        name="password"
-                        required
-                        placeholder="Enter your password"
-                        className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
-                      />
+                      type="password"
+                      name="password"
+                      required
+                      value={password}
+                      onChange={handlePasswordChange}
+                      placeholder="Enter your password"
+                      className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
+                    />
+                    {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
                     </div>
                   </div>
 
@@ -132,10 +312,13 @@ const SignupPage = () => {
                       <input
                         type="password"
                         name="confirmPassword"
+                        value={confirmPassword}
+                        onChange={handleConfirmPasswordChange}
                         required
                         placeholder="Confirm your password"
                         className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                       />
+                      {confirmPasswordError && <p style={{ color: 'red' }}>{confirmPasswordError}</p>}
                     </div>
                   </div>
                   <div className="mb-8 flex">
@@ -169,30 +352,27 @@ const SignupPage = () => {
                           </span>
                         </div>
                       </div>
-                      <span>
-                        By creating account means you agree to the
-                        <a href="#0" className="text-primary hover:underline">
-                          {" "}
-                          Terms and Conditions{" "}
-                        </a>
-                        , and our
-                        <a href="#0" className="text-primary hover:underline">
-                          {" "}
-                          Privacy Policy{" "}
-                        </a>
+                      <label htmlFor="privacy" className="text-sm text-dark dark:text-white">
+                      By creating an account, you agree to the{" "}
+                      <span
+                        className="text-primary cursor-pointer hover:underline"
+                        onClick={togglePrivacyModal}
+                      >
+                        Privacy Policy
                       </span>
                     </label>
+                    </label>
+
                   </div>
+                  <div id="privacyPolicyError" style={{ color: 'red', display: 'none', marginBottom:'20px' }}>You must agree to the privacy policy.</div>
                   <div className="mb-6">
-                    <Link href="/idCardScanner" className="text-primary hover:underline">
-                      <button className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90">
+                      <button className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90" onClick={handleSubmit}>
                         Sign up
                       </button>
-                    </Link>
                   </div>
                 </form>
                 <p className="text-center text-base font-medium text-body-color">
-                  Already using Startup?{" "}
+                  Already using VoteGuard?{" "}
                   <Link href="/signin" className="text-primary hover:underline">
                     Sign in
                   </Link>
@@ -261,6 +441,70 @@ const SignupPage = () => {
           </svg>
         </div>
       </section>
+      {showPrivacyModal && (
+      <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+        <div className="bg-white dark:bg-dark rounded-lg shadow-lg max-w-lg w-full p-6 relative">
+          {/* Close "X" button in the top-right corner */}
+          <button
+            className="absolute top-2 right-2 text-xl text-gray-600 dark:text-white hover:text-red-600"
+            onClick={() => setShowPrivacyModal(false)}
+          >
+            &times;
+          </button>
+
+          <h2 className="text-2xl font-bold text-center mb-4 text-dark dark:text-white">
+            Privacy Policy
+          </h2>
+
+          <div className="text-black dark:text-white overflow-y-auto max-h-64">
+          <p>
+    <br /><strong>Effective Date: 23/12/2024</strong><br /><br />
+
+    At VoteGuard, your privacy and security are our top priority. This Privacy Policy explains how we collect, use, and protect your personal information, including sensitive data like biometric images, and how we ensure its security. By using our platform, you agree to the terms outlined in this policy.
+</p>
+
+<br /> <br /><h2>1. Information We Collect</h2>
+<p>VoteGuard collects the following types of information from users:</p> <br />
+<ul>
+    <li><strong>(a) Personal Identification Information:</strong> This includes your full name, university ID, and university email address. This information is essential for verifying your identity and providing access to the system. Note that these details cannot be changed.</li>
+    <li><strong>(b) Credentials for Authentication:</strong> We collect and store passwords to authenticate your identity securely. All passwords are encrypted and never stored in plain text. You can update your password at any time.</li>
+    <li><strong>(c) Profile Image:</strong> You have the option to upload and update your profile image. This image is used to personalize your account. However, ensure that it's not an image of yourself.</li>
+    <li><strong>(d) Biometric Data:</strong> To enhance security, we collect biometric image data (i.e., an image of yourself) for identity verification and authentication purposes. This biometric data is used only to confirm your identity during login and is securely stored and encrypted.</li>
+</ul>
+
+<br /> <br /><h2>2. How We Use Your Data</h2>
+<p>The data we collect is used for the following purposes:</p> <br />
+<ul>
+    <li><strong>(a) Account Creation and Authentication:</strong> We use your personal details (name, university ID, and email) to create your account and authenticate you securely using your password and biometric data.</li>
+    <li><strong>(b) Biometric Authentication:</strong> Your biometric image data is used solely for the purpose of verifying your identity during login and to enhance the security of your account.</li>
+    <li><strong>(c) Security and Fraud Prevention:</strong> We use your data, including biometric information, to safeguard the platform from unauthorized access, fraud, and other malicious activities.</li>
+    <li><strong>(d) Voting Process:</strong> Your credentials are used to ensure that only authorized users can vote, and the votes are securely recorded. Note that your information remains globally anonymous.</li>
+</ul>
+
+<br /> <br /><h2>3. Encryption and Data Security</h2>
+<p>We take your privacy and security seriously. All sensitive data, including passwords and biometric images, is encrypted both in transit and at rest. Specifically:</p> <br />
+<ul>
+    <li><strong>(a) Passwords:</strong> Passwords are hashed and stored securely in an encrypted format. We never store passwords in plain text.</li>
+    <li><strong>(b) Biometric Data:</strong> Your biometric images are encrypted before being stored. This data is used exclusively for authentication and is not shared with third parties.</li>
+    <li><strong>(c) Data Backup:</strong> We implement regular backup procedures to prevent data loss, and we use secure storage methods to protect all user data.</li>
+    <li><strong>(d) No Advertising:</strong> We do not sell, rent, or trade your personal data to third parties for advertising purposes. The system operates in a closed environment.</li>
+</ul>
+
+<br /> <br /><h2>4. Your Rights Regarding Your Data</h2> <br />
+<p>You can access and update your personal information (e.g., password, profile image) at any time by logging into your account. However, you cannot change your university ID, university email, or full name once they have been set.</p>
+
+<br /> <br /><h2>5. Cookies</h2> <br />
+<p>We may use cookies and other tracking technologies to enhance your experience on the platform. You can manage or disable cookies through your browser settings.</p>
+
+<br /> <br /><h2>6. Changes to This Privacy Policy</h2> <br />
+<p>We reserve the right to update this Privacy Policy from time to time. Any changes will be posted on this page, and the "Effective Date" at the top of the policy will be updated. We encourage you to review this policy periodically.</p>
+
+          </div>
+
+        </div>
+      </div>
+    )}
+
     </>
   );
 };

@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+import { useEffect } from "react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,6 +8,11 @@ export const metadata: Metadata = {
 };
 
 const ErrorPage = () => {
+
+  useEffect(() => {
+    document.title = "VoteGuard | Error";
+  }, []);
+
   return (
     <>
       <section className="relative z-10 pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">

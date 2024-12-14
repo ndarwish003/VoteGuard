@@ -1,20 +1,21 @@
+"use client";
 import AboutSectionOne from "@/components/About/AboutSectionOne";
 import AboutSectionTwo from "@/components/About/AboutSectionTwo";
 import Breadcrumb from "@/components/Common/Breadcrumb";
-
+import { useEffect } from "react";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "VoteGuard | About Us",
-  description: "About Us Page",
-};
-
 const AboutPage = () => {
+
+  useEffect(() => {
+    document.title = "VoteGuard | About";
+  }, []);
+
   return (
     <>
       <Breadcrumb
         pageName="About Us"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In varius eros eget sapien consectetur ultrices. Ut quis dapibus libero."
+        description="VoteGuard is a secure and transparent e-voting platform designed to empower academic institutions with reliable and user-friendly digital voting solutions. Our system ensures confidentiality, integrity, and accessibility for all users, fostering trust and fairness in every election."
       />
       <AboutSectionOne />
       <AboutSectionTwo />

@@ -10,49 +10,75 @@ const VotingForm = () => {
   const [undoTimer, setUndoTimer] = useState(false);
   const [timer, setTimer] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false); // State to manage confirmation dialog visibility
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const router = useRouter();
 
   const options = [
     {
       id: "option1",
-      label: "Option 1",
-      image: "https://th.bing.com/th/id/R.54d2fa733864f398bfc32b58f59199c7?rik=pEWjjhSaGkaH9A&pid=ImgRaw&r=0",
+      label: "Option 1"    
     },
     {
       id: "option2",
-      label: "Option 2",
-      image: "https://th.bing.com/th/id/R.54d2fa733864f398bfc32b58f59199c7?rik=pEWjjhSaGkaH9A&pid=ImgRaw&r=0",
+      label: "Option 2"
     },
     {
       id: "option3",
-      label: "Option 3",
-      image: "https://th.bing.com/th/id/R.54d2fa733864f398bfc32b58f59199c7?rik=pEWjjhSaGkaH9A&pid=ImgRaw&r=0",
+      label: "Option 3"
     },
     {
       id: "option4",
-      label: "Option 4",
-      image: "https://th.bing.com/th/id/R.54d2fa733864f398bfc32b58f59199c7?rik=pEWjjhSaGkaH9A&pid=ImgRaw&r=0",
+      label: "Option 4"
     },
   ];
 
   useEffect(() => {
+
+    document.title = "VoteGuard | Voting Page";
+
     const timerInterval = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
+
     return () => clearInterval(timerInterval);
   }, []);
 
-  const handleVote = () => {
+  const handleVote = async () => {
     if (selectedOption) {
-      setVoteStatus(`You have successfully voted for ${selectedOption}!`);
-      setIsSubmitted(true);
-      setUndoTimer(true);
-      const timerId = setTimeout(() => {
-        setUndoTimer(false);
-        router.push("/User-Dashboard");
-      }, 5000);
-      setTimer(timerId);
+      setVoteStatus("Submitting your vote...");
+
+      try {
+        const response = await fetch("http://localhost:5000/submit_vote", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ candidate_name: selectedOption }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) 
+        {
+          setVoteStatus(`You have successfully voted for ${selectedOption}!`);
+          setIsSubmitted(true);
+          setUndoTimer(true);
+          
+          const timerId = setTimeout(() => {
+            setUndoTimer(false);
+            router.push("/User-Dashboard");
+          }, 5000);
+
+          setTimer(timerId);
+        } 
+        
+        else 
+        {
+          setVoteStatus(data.error || "Something went wrong. Please try again.");
+        }
+      } catch (error) {
+        setVoteStatus("An error occurred. Please try again.");
+      }
     } else {
       setVoteStatus("Please select an option before submitting your vote.");
     }
@@ -67,7 +93,6 @@ const VotingForm = () => {
   };
 
   const handleConfirmation = () => {
-    // Show confirmation dialog when submitting
     if (selectedOption) {
       setShowConfirmation(true);
     } else {
@@ -76,14 +101,11 @@ const VotingForm = () => {
   };
 
   const handleConfirmYes = () => {
-    // Call handleVote when user confirms
     handleVote();
-    // Redirect to '/thank-you' after confirming
     router.push("/User-Dashboard?thankYou=true");
   };
 
   const handleConfirmNo = () => {
-    // Hide confirmation dialog when user clicks "No"
     setShowConfirmation(false);
   };
 
@@ -126,14 +148,8 @@ const VotingForm = () => {
                             onChange={() => setSelectedOption(option.label)}
                             className="form-radio h-5 w-5 text-blue-600 mr-3"
                           />
-                          <span className="text-gray-700 font-medium">{option.label}</span>
+                          <span className="text-black dark:text-white font-medium">{option.label}</span>
                         </div>
-
-                        <img
-                          src={option.image}
-                          alt={option.label}
-                          className="w-12 h-12 rounded-full ml-4"
-                        />
                       </label>
                     ))}
                   </div>

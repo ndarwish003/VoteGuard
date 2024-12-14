@@ -2,14 +2,19 @@ import SectionTitle from "../Common/SectionTitle";
 import SingleFeature from "./SingleFeature";
 import featuresData from "./featuresData";
 
-const Features = () => {
+interface FeaturesProps {
+  id?: string;
+  style?: React.CSSProperties;
+}
+
+const Features: React.FC<FeaturesProps> = ({ id, style }) => {
   return (
     <>
-      <section id="features" className="py-16 md:py-20 lg:py-28">
+      <section id={id} style={style} className="py-16 md:py-20 lg:py-28">
         <div className="container">
           <SectionTitle
             title="Main Features"
-            paragraph="There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration in some form."
+            paragraph="Our E-voting system offers a range of features to ensure secure, transparent, and fair elections"
             center
           />
 

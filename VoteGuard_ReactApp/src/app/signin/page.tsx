@@ -1,11 +1,10 @@
 "use client";
-import { useState, useContext } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation"; // Import useRouter for redirect
 import { AuthContext } from "context/AuthContext";
 
 const SigninPage = () => {
-  const { login } = useContext(AuthContext); // Access the login function from context
   const [email, setEmail] = useState(""); // State for email
   const [password, setPassword] = useState(""); // State for password
   const [error, setError] = useState(""); // State for error messages
@@ -15,15 +14,36 @@ const SigninPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Example validation, replace with your actual validation logic
-    if (email === "test@example.com" && password === "password") {
-      login(); // Call login function from context
-      router.push("/User-Dashboard"); // Redirect to the dashboard
-    } else {
-      setError("Invalid email or password."); // Set error if credentials are invalid
+    if (email === "" && password === "") 
+    {
+      setError("Please enter your credentials.");
+      return;
     }
+    
+    // These are dummy data used for demonstrating the prototype
+    // However, the real system will retrieve and handle user credentials via the database
+    if (email === "s2182161465@ku.edu.kw" && password === "password") 
+    {
+      router.push("/BiometricAuth");
+    }
+
+    else if (email === "admin1@voteguard.com" && password === "admin1") 
+    {
+      router.push("/Admin-Dashboard");
+    }
+    
+    else 
+    {
+      setError("Invalid email or password."); 
+      return;
+    }
+      
   };
 
+  useEffect(() => {
+    document.title = "VoteGuard | Sign In";
+  }, []);
+  
   return (
     <>
       <section className="relative z-10 overflow-hidden pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
@@ -46,6 +66,7 @@ const SigninPage = () => {
                     <input
                       type="email"
                       name="email"
+                      required
                       placeholder="Enter your Email"
                       className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                       value={email}
@@ -62,6 +83,7 @@ const SigninPage = () => {
                     <input
                       type="password"
                       name="password"
+                      required
                       placeholder="Enter your Password"
                       className="border-stroke dark:text-body-color-dark dark:shadow-two w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none transition-all duration-300 focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:focus:border-primary dark:focus:shadow-none"
                       value={password}
@@ -72,18 +94,17 @@ const SigninPage = () => {
                     <div className="text-red-500 text-sm mb-4">{error}</div> // Show error if invalid credentials
                   )}
                   <div className="mb-6">
-                    <Link href="/BiometricAuth">
                       <button
                         type="submit"
                         className="shadow-submit dark:shadow-submit-dark flex w-full items-center justify-center rounded-sm bg-primary px-9 py-4 text-base font-medium text-white duration-300 hover:bg-primary/90"
+                        onClick={handleSubmit}
                       >
                         Sign in
                       </button>
-                    </Link>
                   </div>
                 </form>
                 <p className="text-center text-base font-medium text-body-color">
-                  Don’t you have an account?{" "}
+                  Don’t have an account?{" "}
                   <Link href="/signup" className="text-primary hover:underline">
                     Sign up
                   </Link>

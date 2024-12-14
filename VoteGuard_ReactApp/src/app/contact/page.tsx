@@ -1,14 +1,14 @@
+"use client";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import Contact from "@/components/Contact";
-
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "VoteGuard | Contact Us",
-  description: "Contact Us Page",
-};
+import { useEffect } from "react";
 
 const ContactPage = () => {
+
+  useEffect(() => {
+    document.title = "VoteGuard | Contact Us";
+  }, []);
+
   return (
     <>
       <Breadcrumb

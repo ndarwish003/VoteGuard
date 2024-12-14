@@ -14,7 +14,7 @@ const featuresData: Feature[] = [
     ),
     title: "Blockchain-based Voting",
     paragraph:
-      "Tuae nam ex similique incidunt expedita exerci tationem laudantium. Repellendus quisquam numquam perferendis earum sapiente non tempore? Fugit repellat ut maiores.",
+      "Blockchain technology provides a tamper-proof and auditable record of votes. Each vote is encrypted and added as a block to the chain, making it virtually impossible to alter or manipulate. This ensures the integrity and accuracy of the election results.",
   },
   {
     id: 2,
@@ -27,9 +27,9 @@ const featuresData: Feature[] = [
         <path d="M19.408 28.931C19.7603 29.1896 20.2396 29.1894 20.5918 28.9306L36.3556 17.3466L38.8979 15.4883C39.4437 15.0894 39.4446 14.275 38.8996 13.8749L20.5918 0.43445C20.2396 0.175911 19.7604 0.175913 19.4082 0.434452L1.09706 13.8774C0.553051 14.2767 0.552712 15.0892 1.09638 15.4891L3.62222 17.3466L19.408 28.931Z" />
       </svg>
     ),
-    title: "Biometric authentication",
+    title: "Biometric Authentication",
     paragraph:
-      "Tuae nam ex similique incidunt expedita exerci tationem laudantium. Repellendus quisquam numquam perferendis earum sapiente non tempore? Fugit repellat ut maiores.",
+      "This E-voting system uses facial recognition to verify voter identity. By comparing a live photo of the voter with their registered image, the system ensures that only the intended individual can cast their ballot, significantly reducing the risk of voter impersonation.",
   },
   {
     id: 3,
@@ -44,7 +44,7 @@ const featuresData: Feature[] = [
     ),
     title: "Real-Time Result Tracking",
     paragraph:
-      "Tuae nam ex similique incidunt expedita exerci tationem laudantium. Repellendus quisquam numquam perferendis earum sapiente non tempore? Fugit repellat ut maiores.",
+      "The system ensures real-time tracking of results, allowing voters and observers to monitor vote counts instantly as ballots are cast. This transparency fosters trust in the election process and helps mitigate the risk of fraud.",
   },
   {
     id: 4,
@@ -59,7 +59,7 @@ const featuresData: Feature[] = [
     ),
     title: "Responsive UI",
     paragraph:
-      "Tuae nam ex similique incidunt expedita exerci tationem laudantium. Repellendus quisquam numquam perferendis earum sapiente non tempore? Fugit repellat ut maiores.",
+      "The system features a responsive user interface (UI) that adapts seamlessly to various devices, including smartphones, tablets, and desktops. This ensures that voting is accessible and convenient for all users, regardless of the device they are using.",
   }
 ];
 export default featuresData;

@@ -15,8 +15,7 @@ const Footer = () => {
                   </span>
                 </Link>
                 <p className="mb-9 text-base leading-relaxed text-body-color dark:text-body-color-dark">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Integer lobortis.
+                Empowering Secure and Fair Voting.
                 </p>
               </div>
             </div>

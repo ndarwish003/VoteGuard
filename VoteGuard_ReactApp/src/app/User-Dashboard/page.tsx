@@ -11,11 +11,17 @@ const EventList: React.FC = () => {
     { id: 1, title: "Election 1", date: "9.11.2024", time: "5h" },
     { id: 2, title: "Election 2", date: "10.11.2024", time: "3h" },
     { id: 3, title: "Election 3", date: "11.11.2024", time: "7h" },
-    { id: 4, title: "Drop CS427", date: "19.11.2024", time: "5h" },
-    { id: 5, title: "Elmiya vs Mostaqilla", date: "20.11.2024", time: "3h" },
+    { id: 4, title: "Election 4", date: "19.11.2024", time: "5h" },
+    { id: 5, title: "Election 5", date: "20.11.2024", time: "3h" },
+    { id: 6, title: "CSC President Election", date: "23.12.2024", time: "3h" },
+    { id: 7, title: "Drop CS365", date: "24.12.2024", time: "3h" },
+    { id: 8, title: "Postpone CS101 Exam", date: "22.2.2025", time: "3h" },
   ]);
 
   useEffect(() => {
+    
+    document.title = "VoteGuard | Dashboard";
+  
     if (searchParams.get("thankYou") === "true") {
       setShowThankYou(true);
     }
@@ -53,7 +59,7 @@ const EventList: React.FC = () => {
 
   return (
     <>
-      <section id="about" className="pt-16 md:pt-20 lg:pt-28 mb-20">
+      <section id="about" className="pt-16 md:pt-20 lg:pt-28 mb-20" style={{marginBottom:'500px'}}>
         <div className="container">
           {/* Thank You Message */}
           {showThankYou && (

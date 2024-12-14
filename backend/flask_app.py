@@ -53,7 +53,6 @@ def authenticate():
 
     return jsonify(response)
 
-
 @app.route('/submit_vote', methods=['POST'])
 def submit_vote():
     try:
@@ -69,6 +68,23 @@ def submit_vote():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route('/signup', methods=['POST'])
+def signup():
+    data = request.json
+    fname = data.get('fname')
+    lname = data.get('lname')
+    id = data.get('id')
+    email = data.get('email')
+    gender = data.get('gender')
+    password = data.get('password')
+    
+    # Validate and process the data (simplified for illustration)
+    if not fname or not lname or not id or not email or not gender or not password:
+        return jsonify({'success': False, 'message': 'All fields are required!'}), 400
+
+    # Assume signup succeeds for valid data
+    return jsonify({'success': True, 'message': 'Signup successful!'}), 200
 
 if __name__ == "__main__":
     app.run(debug=True)
