@@ -33,7 +33,9 @@ Make sure all required dependencies are installed. Follow the installation instr
 (5) Running the Full Stack
     - First, run Ganache and copy the private key of account[0] to the .env file.
     Ganache will now be running and accessible at http://127.0.0.1:8545.
+
     - Then, navigate to the 'backend' directory and start the flask app: cd backend && python3 flask_app.py
     The Flask backend will now be running and accessible at http://localhost:5000.
+    
     - Finally, run the React App: npm run dev
     The frontend will now be running locally and accessible at http://localhost:3000.
