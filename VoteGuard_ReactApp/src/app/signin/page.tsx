@@ -1,16 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation"; // Import useRouter for redirect
-import { AuthContext } from "context/AuthContext";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
 
 const SigninPage = () => {
-  const [email, setEmail] = useState(""); // State for email
-  const [password, setPassword] = useState(""); // State for password
-  const [error, setError] = useState(""); // State for error messages
-  const router = useRouter(); // Access the Next.js router for navigation
+  const [email, setEmail] = useState(""); 
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(""); 
+  const router = useRouter(); 
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 

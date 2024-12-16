@@ -22,7 +22,7 @@ const Guide = () => {
               <div className="step py-6">
                 <h2 className="text-xl font-semibold mb-2">1. Log In</h2>
                 <p>
-                  Navigate to the <strong>login page</strong>, enter your credentials, and authenticate your identity using <strong>biometric authentication</strong> (e.g., fingerprint or facial recognition).
+                  Navigate to the <strong>login page</strong>, enter your credentials, and authenticate your identity via the <strong> biometric authentication </strong>page.
                 </p>
               </div>
 

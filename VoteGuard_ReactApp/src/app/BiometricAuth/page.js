@@ -5,7 +5,7 @@ import Webcam from "react-webcam";
 import { AuthContext } from "context/AuthContext";
 
 const BiometricAuth = () => {
-  const { login } = useContext(AuthContext); // Access the login function from context
+  const { login } = useContext(AuthContext);
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const router = useRouter();
@@ -13,7 +13,7 @@ const BiometricAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const captureImage = async () => {
-    setIsLoading(true); // Start loading animation
+    setIsLoading(true);
     const imageSrc = webcamRef.current.getScreenshot();
     if (imageSrc) {
       try {
@@ -101,7 +101,7 @@ const BiometricAuth = () => {
 
   return (
     <div style={{ textAlign: "center", padding: "20px" }}>
-      <h1 style={{ fontSize: "24px", marginBottom: "20px", marginTop: "50px" }}>Biometric Authentication</h1>
+      <h1 style={{ fontSize: "24px", marginBottom: "20px", marginTop: "150px" }}>Biometric Authentication</h1>
       <div style={{ position: "relative", display: "inline-block" }}>
         <Webcam
           ref={webcamRef}

@@ -8,8 +8,8 @@ import { useAuth } from "context/AuthContext";
 const Header = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [sticky, setSticky] = useState(false);
-  const [openIndex, setOpenIndex] = useState(-1);  // Track which submenu is open
-  const [dropdownOpen, setDropdownOpen] = useState(false);  // For profile dropdown toggle
+  const [openIndex, setOpenIndex] = useState(-1); 
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const { isLoggedIn, logout } = useAuth();
 
   const handleStickyNavbar = () => {
@@ -40,7 +40,19 @@ const Header = () => {
       },
     ]
     : menuData;
-
+    const dynamicMenuDataAdmin = isLoggedIn
+    ? [
+      { id: 1, title: "Dashboard", path: "/User-Dashboard", newTab: false },
+      { id: 2, title: "History", path: "/info-Dashboard", newTab: false },
+      {
+        id: 3,
+        title: "More",
+        submenu: [
+          ...menuData,
+        ],
+      },
+    ]
+    : menuData;
   const handleLogout = () => {
     logout();
     redirect("/");

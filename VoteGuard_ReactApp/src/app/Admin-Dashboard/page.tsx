@@ -11,17 +11,12 @@ import {
     FaCalendarPlus,
     FaEdit,
     FaClock,
-    FaCheckCircle,
-    FaInfoCircle
 } from "react-icons/fa";
 
 const AdminDashboard: React.FC = () => {
     const [showForm, setShowForm] = useState(false);
     const [events, setEvents] = useState([]);
     const [editingEvent, setEditingEvent] = useState(null);
-    const [showVoterInfo, setShowVoterInfo] = useState(false);
-    const [searchTerm, setSearchTerm] = useState("");
-
 
     const staticEvents = {
         upcoming: {
@@ -90,6 +85,7 @@ const AdminDashboard: React.FC = () => {
     };
 
     useEffect(() => {
+        document.title = 'Admin Dashboard';
         setEvents([staticEvents.upcoming]);
     }, []);
 
@@ -129,7 +125,7 @@ const AdminDashboard: React.FC = () => {
     };
 
     return (
-        <section id="about" className="pt-16 md:pt-20 lg:pt-28 mb-20">
+        <section id="about" className="pt-16 md:pt-20 lg:pt-28 mb-20 mt-20">
             <div className="container">
                 <div className="min-h-screen bg-gray-100 p-4">
                     <div className="max-w-7xl mx-auto">
@@ -175,6 +171,8 @@ const AdminDashboard: React.FC = () => {
 
                         {/* --------------------------------------- */}
                         {/* Upcoming Events Section */}
+                        
+                        <h2 className="text-2xl font-bold text-gray-800 mb-4">Upcoming Events</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 ">
                             {events.map((event) => (
                                 <div key={event.id} className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
@@ -257,7 +255,7 @@ const AdminDashboard: React.FC = () => {
                                         <div className="space-y-3">
                                             {event.options.map(option => (
                                                 <div key={option.id} className="space-y-1">
-                                                    <div className="flex justify-between text-sm">
+                                                    <div className="flex justify-between text-black">
                                                         <span>{option.text}</span>
                                                         <span>{option.votes} votes ({(option.votes / event.currentVotes * 100).toFixed(1)}%)</span>
                                                     </div>
@@ -286,67 +284,6 @@ const AdminDashboard: React.FC = () => {
                                                 <h3 className="text-xl font-semibold text-gray-800 mb-2">{event.title}</h3>
                                                 <p className="text-gray-600">{event.description}</p>
                                             </div>
-                                            {/* Show Voter Info */}
-                                            <div className="flex space-x-2">
-                                                <div
-                                                    role="button"
-                                                    onClick={() => setShowVoterInfo(true)}
-                                                    className="relative p-2 text-blue-600 hover:text-blue-800 transition-colors group"
-                                                    title="Show Voter Details"
-                                                >
-
-                                                    <FaInfoCircle size={18} />
-                                                    {showVoterInfo && (
-                                                        <div className="absolute right-0 mt-2 w-96 bg-white rounded-lg shadow-xl p-4 z-50 transform transition-all duration-300 ease-in-out opacity-100 scale-100 origin-top-right">
-                                                            <div className="flex justify-between items-center mb-3">
-                                                                <h4 className="text-lg font-semibold text-gray-800">Voter Details</h4>
-                                                                <button
-                                                                    onClick={(e) => {
-                                                                        e.stopPropagation();
-                                                                        setShowVoterInfo(false);
-                                                                    }}
-                                                                    className="text-gray-500 hover:text-gray-700"
-                                                                >
-                                                                    ×
-                                                                </button>
-
-                                                            </div>
-                                                            <div className="relative mb-4">
-                                                                <input
-                                                                    type="text"
-                                                                    placeholder="Search voters..."
-                                                                    value={searchTerm}
-                                                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                                                />
-                                                                <FaSearch className="absolute right-3 top-3 text-gray-400" />
-                                                            </div>
-                                                            <div className="max-h-60 overflow-y-auto">
-                                                                {event.voterDetails.filter(voter => voter.name.toLowerCase().includes(searchTerm.toLowerCase()) || voter.id.includes(searchTerm)
-                                                                ).map((voter, index) => (
-                                                                    <div key={index} className={`p-3 rounded-lg ${voter.vote ? "bg-green-50 border border-green-200" : "bg-red-50 border border-red-200"}`}>
-                                                                        <div className="p-3 border-b last:border-b-0 transition-colors">
-                                                                            <div className='flex justify-between items-center '>
-                                                                                <span className="font-medium text-gray-700">{voter.name}</span>
-                                                                                <span className="text-blue-600">{voter.id}</span>
-                                                                            </div>
-                                                                            <div className="text-xs text-gray-500 mt-1">
-                                                                                {new Date(voter.timestamp).toLocaleString()}
-                                                                            </div>
-                                                                        </div>
-
-                                                                    </div>
-                                                                ))}
-                                                            </div>
-                                                        </div>
-                                                    )}
-                                                    {/* </button> */}
-                                                </div>
-                                                <div className="bg-green-100 p-2 rounded-full">
-                                                    <FaCheckCircle className="text-green-600" />
-                                                </div>
-                                            </div>
-
                                         </div>
                                         <div className="mb-4">
                                             <p className="text-sm text-gray-600">Completed on: {event.completedDate}</p>
@@ -357,8 +294,8 @@ const AdminDashboard: React.FC = () => {
                                             {event.options.map(option => (
                                                 <div key={option.id} className={`p-3 rounded-lg ${option.isWinner ? "bg-green-50 border border-green-200" : "bg-gray-50"}`}>
                                                     <div className="flex justify-between items-center">
-                                                        <span className="font-medium">{option.text}</span>
-                                                        <span className="text-sm">{option.votes} votes ({(option.votes / event.totalVotes * 100).toFixed(1)}%)</span>
+                                                        <span className="font-medium text-black">{option.text}</span>
+                                                        <span className="text-black">{option.votes} votes ({(option.votes / event.totalVotes * 100).toFixed(1)}%)</span>
                                                     </div>
                                                     <div className="w-full bg-gray-200 rounded-full h-1.5 mt-2">
                                                         <div
@@ -415,7 +352,6 @@ const VotingEventForm = ({ onSubmit, onClose, initialData }: any) => {
         }
     );
 
-    const [selectedDepartment, setSelectedDepartment] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [errors, setErrors] = useState({});
@@ -425,36 +361,27 @@ const VotingEventForm = ({ onSubmit, onClose, initialData }: any) => {
         return today.toISOString().split("T")[0];
     };
 
-    const departments = [
-        "Engineering",
-        "Marketing",
-        "Sales",
-        "HR",
-        "Finance"
-    ];
 
     const dummyUsers = [
-        { id: '2181147640', name: "John Doe", department: "Engineering", },
-        { id: '1234567890', name: "Jane Smith", department: "Marketing", },
-        { id: '3981273649', name: "Mike Johnson", department: "Sales", },
-        { id: '4023729373', name: "Sarah Williams", department: "HR", },
-        { id: '5239057029', name: "Tom Brown", department: "Finance", }
+        { id: '2181147640', name: "John Doe",},
+        { id: '1234567890', name: "Jane Smith",},
+        { id: '3981273649', name: "Mike Johnson",},
+        { id: '4023729373', name: "Sarah Williams", },
+        { id: '5239057029', name: "Tom Brown",}
     ];
 
     const [filteredUsers, setFilteredUsers] = useState(dummyUsers);
 
     useEffect(() => {
         let filtered = dummyUsers;
-        if (selectedDepartment) {
-            filtered = filtered.filter(user => user.department === selectedDepartment);
-        }
+        
         if (searchQuery) {
             filtered = filtered.filter(user =>
                 user.name.toLowerCase().includes(searchQuery.toLowerCase()) || user.id.includes(searchQuery)
             );
         }
         setFilteredUsers(filtered);
-    }, [selectedDepartment, searchQuery]);
+    }, [ searchQuery]);
 
     const validateStep1 = () => {
         const errors = {};
@@ -528,7 +455,7 @@ const VotingEventForm = ({ onSubmit, onClose, initialData }: any) => {
     return (
         <div className="space-y-4">
             <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold">
+                <h2 className="text-2xl font-bold text-black">
                     {step === 1 ? "Event Details" : "Select Participants"}
                 </h2>
                 <button
@@ -547,7 +474,7 @@ const VotingEventForm = ({ onSubmit, onClose, initialData }: any) => {
                             type="text"
                             value={formData.title}
                             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                            className="mt-1 block w-full bg-white rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         />
                         {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
                     </div>
@@ -557,7 +484,7 @@ const VotingEventForm = ({ onSubmit, onClose, initialData }: any) => {
                         <textarea
                             value={formData.description}
                             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                            className="mt-1 block w-full rounded-md bg-white border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                             rows="3"
                         />
                         {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
@@ -571,7 +498,7 @@ const VotingEventForm = ({ onSubmit, onClose, initialData }: any) => {
                                 min={getCurrentDate()}
                                 value={formData.startDate}
                                 onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                className="mt-1 block w-full rounded-md text-black bg-white border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                             />
                             {errors.startDate && <p className="text-red-500 text-sm mt-1">{errors.startDate}</p>}
                         </div>
@@ -582,7 +509,7 @@ const VotingEventForm = ({ onSubmit, onClose, initialData }: any) => {
                                 type="time"
                                 value={formData.startTime}
                                 onChange={(e) => setFormData({ ...formData, startTime: e.target.value })}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                className="mt-1 block w-full text-black rounded-md bg-white border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                             />
                             {errors.startTime && <p className="text-red-500 text-sm mt-1">{errors.startTime}</p>}
                         </div>
@@ -594,7 +521,7 @@ const VotingEventForm = ({ onSubmit, onClose, initialData }: any) => {
                                 min={formData.startDate || getCurrentDate()}
                                 value={formData.endDate}
                                 onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                className="mt-1 block w-full text-black rounded-md bg-white border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                             />
                             {errors.endDate && <p className="text-red-500 text-sm mt-1">{errors.endDate}</p>}
                         </div>
@@ -605,7 +532,7 @@ const VotingEventForm = ({ onSubmit, onClose, initialData }: any) => {
                                 type="time"
                                 value={formData.endTime}
                                 onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                className="mt-1 block w-full text-black rounded-md bg-white border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                             />
                             {errors.endTime && <p className="text-red-500 text-sm mt-1">{errors.endTime}</p>}
                         </div>
@@ -623,7 +550,7 @@ const VotingEventForm = ({ onSubmit, onClose, initialData }: any) => {
                                         newOptions[index].text = e.target.value;
                                         setFormData({ ...formData, options: newOptions });
                                     }}
-                                    className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                    className="block w-full rounded-md bg-white border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                                     placeholder={`Option ${index + 1}`}
                                 />
                                 {formData.options.length > 2 && (
@@ -650,17 +577,6 @@ const VotingEventForm = ({ onSubmit, onClose, initialData }: any) => {
                 <div className="space-y-4">
                     <div className="flex flex-col space-y-4">
                         <div className="flex items-center space-x-4 bg-gray-50 p-4 rounded-lg">
-                            <select
-                                value={selectedDepartment}
-                                onChange={(e) => setSelectedDepartment(e.target.value)}
-                                className="block w-48 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                            >
-                                <option value="">All Departments</option>
-                                {departments.map((dept) => (
-                                    <option key={dept} value={dept}>{dept}</option>
-                                ))}
-                            </select>
-
                             <div className="flex-1 relative">
                                 <input
                                     type="text"
@@ -707,9 +623,6 @@ const VotingEventForm = ({ onSubmit, onClose, initialData }: any) => {
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             ID
                                         </th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Department
-                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
@@ -732,7 +645,6 @@ const VotingEventForm = ({ onSubmit, onClose, initialData }: any) => {
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">{user.name}</td>
                                             <td className="px-6 py-4 whitespace-nowrap">{user.id}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap">{user.department}</td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -761,7 +673,7 @@ const VotingEventForm = ({ onSubmit, onClose, initialData }: any) => {
                                 Next <FaChevronRight className="ml-2" />
                             </>
                         ) : (
-                            <h2 className="text-2xl font-bold text-gray-800">
+                            <h2 className="text-2xl font-bold text-white">
                                 {initialData ? "Edit Event" : "Create"}
                             </h2>
                         )}
