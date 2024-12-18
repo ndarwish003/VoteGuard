@@ -149,41 +149,40 @@ const TakePicture = () => {
                 </div>
               </>
             )}
-
-{mode === "upload" && (
-      <>
-        <h1 className="flex justify-center text-black dark:text-white text-3xl font-bold mb-10">
-          Upload a Picture
-        </h1>
-        <div className="w-full max-w-md mb-6 mx-auto">
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className="w-full text-gray-700 bg-white py-2 px-4 rounded shadow-lg"
-          />
-        </div>
-      </>
-    )}
-    {(uploadedImage) && (
-      <div className="flex justify-center flex-col items-center w-full max-w-3xl mt-8">
-        <h2 className="text-xl font-bold mb-4">Selected Image:</h2>
-        <img
-          src={capturedImage || uploadedImage}
-          alt="Selected"
-          className="w-full max-w-md rounded-lg shadow-lg mb-6"
-        />
-        <button
-          onClick={handleSubmit}
-          className="bg-[#5f62fa] text-white py-2 px-4 rounded font-semibold hover:bg-[#3e1aab] hover:shadow-lg transition-all duration-200 mb-4"
-        >
-          Submit
-        </button>
-      </div>
-    )}
+            {mode === "upload" && (
+                  <>
+                    <h1 className="flex justify-center text-black dark:text-white text-3xl font-bold mb-10">
+                      Upload a Picture
+                    </h1>
+                    <div className="w-full max-w-md mb-6 mx-auto">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        className="w-full text-gray-700 bg-white py-2 px-4 rounded shadow-lg"
+                      />
+                    </div>
+                  </>
+                )}
+                {(uploadedImage) && (
+                  <div className="flex justify-center flex-col items-center w-full max-w-3xl mt-8">
+                    <h2 className="text-xl font-bold mb-4">Selected Image:</h2>
+                    <img
+                      src={capturedImage || uploadedImage}
+                      alt="Selected"
+                      className="w-full max-w-md rounded-lg shadow-lg mb-6"
+                    />
+                    <button
+                      onClick={handleSubmit}
+                      className="bg-[#5f62fa] text-white py-2 px-4 rounded font-semibold hover:bg-[#3e1aab] hover:shadow-lg transition-all duration-200 mb-4"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
     </div>
   );
 };

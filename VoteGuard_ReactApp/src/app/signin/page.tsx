@@ -2,13 +2,14 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
+import { useAdmin } from "context/AuthContext";
 
 const SigninPage = () => {
   const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState("");
   const [error, setError] = useState(""); 
   const router = useRouter(); 
+  const {setAdmin} = useAdmin();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,6 +29,7 @@ const SigninPage = () => {
 
     else if (email === "admin1@voteguard.com" && password === "admin1") 
     {
+      setAdmin(true);
       router.push("/Admin-Dashboard");
     }
     

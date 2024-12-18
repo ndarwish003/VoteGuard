@@ -5,7 +5,7 @@ import Webcam from "react-webcam";
 import Tesseract from "tesseract.js";
 
 const preprocessImage = (image) => {
-  return image; // Placeholder for image preprocessing logic if needed
+  return image; 
 };
 
 const IdCardScanner = () => {

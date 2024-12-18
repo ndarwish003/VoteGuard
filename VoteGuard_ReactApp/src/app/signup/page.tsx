@@ -458,53 +458,50 @@ const SignupPage = () => {
 
           <div className="text-black dark:text-white overflow-y-auto max-h-64">
           <p>
-    <br /><strong>Effective Date: 23/12/2024</strong><br /><br />
+            <br /><strong>Effective Date: 23/12/2024</strong><br /><br />
 
-    At VoteGuard, your privacy and security are our top priority. This Privacy Policy explains how we collect, use, and protect your personal information, including sensitive data like biometric images, and how we ensure its security. By using our platform, you agree to the terms outlined in this policy.
-</p>
+            At VoteGuard, your privacy and security are our top priority. This Privacy Policy explains how we collect, use, and protect your personal information, including sensitive data like biometric images, and how we ensure its security. By using our platform, you agree to the terms outlined in this policy.
+          </p>
 
-<br /> <br /><h2>1. Information We Collect</h2>
-<p>VoteGuard collects the following types of information from users:</p> <br />
-<ul>
-    <li><strong>(a) Personal Identification Information:</strong> This includes your full name, university ID, and university email address. This information is essential for verifying your identity and providing access to the system. Note that these details cannot be changed.</li>
-    <li><strong>(b) Credentials for Authentication:</strong> We collect and store passwords to authenticate your identity securely. All passwords are encrypted and never stored in plain text. You can update your password at any time.</li>
-    <li><strong>(c) Profile Image:</strong> You have the option to upload and update your profile image. This image is used to personalize your account. However, ensure that it's not an image of yourself.</li>
-    <li><strong>(d) Biometric Data:</strong> To enhance security, we collect biometric image data (i.e., an image of yourself) for identity verification and authentication purposes. This biometric data is used only to confirm your identity during login and is securely stored and encrypted.</li>
-</ul>
+          <br /> <br /><h2>1. Information We Collect</h2>
+          <p>VoteGuard collects the following types of information from users:</p> <br />
+          <ul>
+              <li><strong>(a) Personal Identification Information:</strong> This includes your full name, university ID, and university email address. This information is essential for verifying your identity and providing access to the system. Note that these details cannot be changed.</li>
+              <li><strong>(b) Credentials for Authentication:</strong> We collect and store passwords to authenticate your identity securely. All passwords are encrypted and never stored in plain text. You can update your password at any time.</li>
+              <li><strong>(c) Profile Image:</strong> You have the option to upload and update your profile image. This image is used to personalize your account. However, ensure that it's not an image of yourself.</li>
+              <li><strong>(d) Biometric Data:</strong> To enhance security, we collect biometric image data (i.e., an image of yourself) for identity verification and authentication purposes. This biometric data is used only to confirm your identity during login and is securely stored and encrypted.</li>
+          </ul>
 
-<br /> <br /><h2>2. How We Use Your Data</h2>
-<p>The data we collect is used for the following purposes:</p> <br />
-<ul>
-    <li><strong>(a) Account Creation and Authentication:</strong> We use your personal details (name, university ID, and email) to create your account and authenticate you securely using your password and biometric data.</li>
-    <li><strong>(b) Biometric Authentication:</strong> Your biometric image data is used solely for the purpose of verifying your identity during login and to enhance the security of your account.</li>
-    <li><strong>(c) Security and Fraud Prevention:</strong> We use your data, including biometric information, to safeguard the platform from unauthorized access, fraud, and other malicious activities.</li>
-    <li><strong>(d) Voting Process:</strong> Your credentials are used to ensure that only authorized users can vote, and the votes are securely recorded. Note that your information remains globally anonymous.</li>
-</ul>
+          <br /> <br /><h2>2. How We Use Your Data</h2>
+          <p>The data we collect is used for the following purposes:</p> <br />
+          <ul>
+              <li><strong>(a) Account Creation and Authentication:</strong> We use your personal details (name, university ID, and email) to create your account and authenticate you securely using your password and biometric data.</li>
+              <li><strong>(b) Biometric Authentication:</strong> Your biometric image data is used solely for the purpose of verifying your identity during login and to enhance the security of your account.</li>
+              <li><strong>(c) Security and Fraud Prevention:</strong> We use your data, including biometric information, to safeguard the platform from unauthorized access, fraud, and other malicious activities.</li>
+              <li><strong>(d) Voting Process:</strong> Your credentials are used to ensure that only authorized users can vote, and the votes are securely recorded. Note that your information remains globally anonymous.</li>
+          </ul>
 
-<br /> <br /><h2>3. Encryption and Data Security</h2>
-<p>We take your privacy and security seriously. All sensitive data, including passwords and biometric images, is encrypted both in transit and at rest. Specifically:</p> <br />
-<ul>
-    <li><strong>(a) Passwords:</strong> Passwords are hashed and stored securely in an encrypted format. We never store passwords in plain text.</li>
-    <li><strong>(b) Biometric Data:</strong> Your biometric images are encrypted before being stored. This data is used exclusively for authentication and is not shared with third parties.</li>
-    <li><strong>(c) Data Backup:</strong> We implement regular backup procedures to prevent data loss, and we use secure storage methods to protect all user data.</li>
-    <li><strong>(d) No Advertising:</strong> We do not sell, rent, or trade your personal data to third parties for advertising purposes. The system operates in a closed environment.</li>
-</ul>
+          <br /> <br /><h2>3. Encryption and Data Security</h2>
+          <p>We take your privacy and security seriously. All sensitive data, including passwords and biometric images, is encrypted both in transit and at rest. Specifically:</p> <br />
+          <ul>
+              <li><strong>(a) Passwords:</strong> Passwords are hashed and stored securely in an encrypted format. We never store passwords in plain text.</li>
+              <li><strong>(b) Biometric Data:</strong> Your biometric images are encrypted before being stored. This data is used exclusively for authentication and is not shared with third parties.</li>
+              <li><strong>(c) Data Backup:</strong> We implement regular backup procedures to prevent data loss, and we use secure storage methods to protect all user data.</li>
+              <li><strong>(d) No Advertising:</strong> We do not sell, rent, or trade your personal data to third parties for advertising purposes. The system operates in a closed environment.</li>
+          </ul>
 
-<br /> <br /><h2>4. Your Rights Regarding Your Data</h2> <br />
-<p>You can access and update your personal information (e.g., password, profile image) at any time by logging into your account. However, you cannot change your university ID, university email, or full name once they have been set.</p>
+          <br /> <br /><h2>4. Your Rights Regarding Your Data</h2> <br />
+          <p>You can access and update your personal information (e.g., password, profile image) at any time by logging into your account. However, you cannot change your university ID, university email, or full name once they have been set.</p>
 
-<br /> <br /><h2>5. Cookies</h2> <br />
-<p>We may use cookies and other tracking technologies to enhance your experience on the platform. You can manage or disable cookies through your browser settings.</p>
+          <br /> <br /><h2>5. Cookies</h2> <br />
+          <p>We may use cookies and other tracking technologies to enhance your experience on the platform. You can manage or disable cookies through your browser settings.</p>
 
-<br /> <br /><h2>6. Changes to This Privacy Policy</h2> <br />
-<p>We reserve the right to update this Privacy Policy from time to time. Any changes will be posted on this page, and the "Effective Date" at the top of the policy will be updated. We encourage you to review this policy periodically.</p>
-
+          <br /> <br /><h2>6. Changes to This Privacy Policy</h2> <br />
+          <p>We reserve the right to update this Privacy Policy from time to time. Any changes will be posted on this page, and the "Effective Date" at the top of the policy will be updated. We encourage you to review this policy periodically.</p>
           </div>
-
         </div>
       </div>
-    )}
-
+      )}
     </>
   );
 };

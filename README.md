@@ -1,7 +1,10 @@
 VoteGuard - Secure E-Voting System
 
+
+
 Overview
 VoteGuard is a secure, web-based E-voting system designed for academic institutions (i.e., Kuwait University). The platform utilizes blockchain technology for secure voting, ensuring transparency and integrity. It features a React frontend, Flask backend, and a private Ethereum blockchain using Ganache for transaction management.
+
 
 
 Prerequisites
@@ -13,7 +16,9 @@ Prerequisites
 (3) Ganache for the private Ethereum blockchain.
 
 
+
 Make sure all required dependencies are installed. Follow the installation instructions below to set up the environment.
+
 
 
 (1) Clone the repository: git clone https://github.com/ndarwish003/VoteGuard.git + cd VoteGuard

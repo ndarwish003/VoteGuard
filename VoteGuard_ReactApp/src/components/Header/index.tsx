@@ -3,14 +3,15 @@ import { usePathname, redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
-import { useAuth } from "context/AuthContext";
+import { useAuth, useAdmin } from "context/AuthContext";
 
 const Header = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [sticky, setSticky] = useState(false);
   const [openIndex, setOpenIndex] = useState(-1); 
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { isLoggedIn, logout } = useAuth();
+  const { isLoggedIn, logout, isAdmin } = useAuth();
+  const {setAdmin} = useAdmin();
 
   const handleStickyNavbar = () => {
     if (window.scrollY >= 80) {
@@ -27,7 +28,7 @@ const Header = () => {
   const usePathName = usePathname();
 
   // Define dynamic menuData based on login status
-  const dynamicMenuData = isLoggedIn
+  const dynamicMenuData = isLoggedIn && !isAdmin
     ? [
       { id: 1, title: "Dashboard", path: "/User-Dashboard", newTab: false },
       { id: 2, title: "History", path: "/info-Dashboard", newTab: false },
@@ -39,22 +40,11 @@ const Header = () => {
         ],
       },
     ]
-    : menuData;
-    const dynamicMenuDataAdmin = isLoggedIn
-    ? [
-      { id: 1, title: "Dashboard", path: "/User-Dashboard", newTab: false },
-      { id: 2, title: "History", path: "/info-Dashboard", newTab: false },
-      {
-        id: 3,
-        title: "More",
-        submenu: [
-          ...menuData,
-        ],
-      },
-    ]
-    : menuData;
+    : [];
+    
   const handleLogout = () => {
     logout();
+    setAdmin(false);
     redirect("/");
   };
 
@@ -70,7 +60,7 @@ const Header = () => {
   return (
     <>
       <header
-        className={`header left-0 top-0 z-40 flex w-full items-center ${sticky
+        className={`header left-0 top-0 z-40 py-4 flex w-full items-center ${sticky
           ? "dark:bg-gray-dark dark:shadow-sticky-dark fixed z-[9999] bg-white !bg-opacity-80 shadow-sticky backdrop-blur-sm transition"
           : "absolute bg-transparent"
           }`}
@@ -87,6 +77,13 @@ const Header = () => {
                 </span>
               </Link>
             </div>
+            {isAdmin ? (
+            <div className="flex items-center justify-end w-full">
+              <button onClick={handleLogout} className="ml-4 text-sm font-medium text-white rounded-sm bg-primary px-12 py-3">
+                Logout
+              </button>
+              </div>
+          ) : (
             <div className="flex w-full items-center justify-between px-4">
               <div>
                 <button
@@ -202,9 +199,10 @@ const Header = () => {
                     )}
                   </div>
                 )}
-                <ThemeToggler />
               </div>
             </div>
+          )}
+          <ThemeToggler />
           </div>
         </div>
       </header>
